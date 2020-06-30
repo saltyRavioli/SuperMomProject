@@ -1,0 +1,19 @@
+<html>
+    <head><title>Login Form</title></head>
+    <body>
+        <h1>Please enter your username and password:</h1>
+        <script>
+            function addUser() {
+                var user = document.getElementById("uname").value;
+                var form = this;
+                form.action = "http://localhost:8080/getLogin/" + user;
+                form.submit();
+            }
+        </script>
+        <form action="http://localhost:8080/validLogin" method="POST">
+            Username: <input type="text" name="uname" id="uname"><br>
+            Password: <input type="text" name="pword" id="pword"><br>
+            <button type="submit" id="submitButton">Submit</button>
+        </form>
+    </body>
+</html>

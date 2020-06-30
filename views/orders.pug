@@ -1,0 +1,27 @@
+<div>
+
+
+table
+    thead
+        tr
+            th ID
+            th Name
+            th Description
+            th Price
+            
+    each item in items
+        tr
+            td= item.product_id
+            td= item.product_name 
+            td= item.product_description 
+            td= "$"+item.product_price
+
+</div>
+
+<html>
+    <body>
+        <form action="http://localhost:8080/addToOrder" method="POST">
+        <br> Add Product to Cart: <input type="text" name="productID" id="productID"><br>
+        </form>
+    <body>
+</html>
