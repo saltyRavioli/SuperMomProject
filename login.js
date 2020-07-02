@@ -260,8 +260,8 @@ app.post("/forgotPassword", function (req, res) {
   var mailOptions = {
       from: 'nathanymlu@gmail.com',
       to: 'nathanymlu@gmail.com',
-      subject: 'Sending Email using Node.js',
-      text: 'Reset your password by clicking on the following link: '+__dirname+"/resetPassword/?token="+token
+      subject: 'Reset Password',
+      text: 'Reset your password by following this link: '+"http://localhost:8080/resetPassword/?token="+token
   };
   transporter.sendMail(mailOptions, function(error, info){
       if (error) {
@@ -277,7 +277,8 @@ app.get('/resetPassword*', function (req,res) {
   var adr = req.url;
   var q = url.parse(adr, true);
   var qdata = q.query;
-  var token = qdata.token; 
+  var token = qdata.token; //asking for the token field in the url
+  console.log(token)
   let sql = `SELECT * FROM members WHERE resetPasswordKey = '${token}'`;
   let query = con.query(sql, function(err, result) {
     if(err) {
@@ -367,41 +368,7 @@ create table orders(
     constraint fk_member3 foreign key (member_id) references members (member_id),
     constraint fk_product foreign key (product_id) references products (product_id)
 );
-*/
-app.get('/createOrders', (req, res) => {
-  sql = `create table orders(
-    order_id bigint primary key auto_increment,
-    product_id bigint not null,
-    member_id bigint not null,
-    created_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    ratings int,
-    feedback text(1000),
-    order_status varchar(30)
-    );`
-  let query = con.query(sql, function(err, result) {
-    if(err) {
-        console.log("An error occurred.");
-        throw err;
-    }
-    else {
-      console.log(result);
-    }
-  });
-});
-app.get('/modifyMembers', (req, res) => {
-  sql = `ALTER TABLE members
-  ADD COLUMN resetPasswordKey VARCHAR(255) AFTER level_id,
-  ADD COLUMN expires DATETIME AFTER resetPasswordKey`
-  let query = con.query(sql, function(err, result) {
-    if(err) {
-        console.log("An error occurred.");
-        throw err;
-    }
-    else {
-      console.log(result);
-    }
-  });
-});
+
 /*
 create table products(
   product_id bigint primary key auto_increment,
@@ -413,84 +380,6 @@ create table products(
   constraint fk_category foreign key(category_id) references category(category_id)
 );
 */
-app.get('/createProducts', (req, res) => {
-  sql = `create table products(
-    product_id bigint primary key auto_increment,
-    product_name varchar(50) not null,
-    product_description text (1000),
-    product_price numeric(4,2) not null,
-    category varchar(50),
-    product_status varchar (10),
-    image_path varchar(500)
-    );`
-  let query = con.query(sql, function(err, result) {
-    if(err) {
-        console.log("An error occurred.");
-        throw err;
-    }
-    else {
-      console.log(result);
-    }
-  });
-});
-app.get('/addProducts', (req, res) => {
-  sql = `insert into products values (null, 'Ripped Skinny Jeans', 'Skinny jeans with five pockets. Washed effect with rips at legs and hem. Front zip and metal button closure.', 24.99, 'Fashion', null,null),
-  (null,'Mega Ripped Jeans','Medium blue ripped jeans with denim patches underneath, for staying covered up without sacrificing your style.',19.99,'Fashion','Sale',null),
-  (null, 'Vintage Skinny Jeans','Jeans made from stretch fabric with holding power technology. High-waisted vintage style. Five pockets. Washed effect. Front zip and metal button closure.',14.99, 'Fashion',null,null),
-  (null, 'Bamboo Baby Wipes', 'Wet Wipes. Made of eco-friendly, unbleached bamboo and enriched with natural and organic oils. Chlorine, Sulphates & Parabens Free. Contains 6 pack, per pack 80 wipes.',35.94,'Baby Products','Sale',null),
-  (null,'All Purpose Cleaning Wipes','Dry Wipes. Multi-purpose: a powerful wipe for all surfaces at home and away: perfect for toys, high chairs, swings and even countertops.', 8.99,'Baby Products',null,null),
-  (null,'Baby Toothbrush & Banana Toothbrush','100% food grade silicone,FDA stand BPA free. The soft and flexible material decreases risk of mouth injury.',9.99,'Baby Products','Sale',null),
-  (null,'FLINTSTONES Gummies Multivitamin','Come in great tasting, chewy fruit flavours and fun character shapes. Contains Vitamin A, vitamin D, vitamin B6 and vitamin B12.',8.97,'Baby Products',null,null),
-  (null,'Cartoon First Aid Bandages','Water resistible and breathable,but do not be soaked in water for a long time. Lovely cartoon design. Include 20 pieces per package.',23.14,'Family Products',null,null),
-  (null,'No Contact Infrared Thermometer','Measurement work is completed in an instant in 1 second, instant reading,more accurate than standard mercury thermometers. Suitable for baby, children, adults and room/object.',27.70,'Family Products','Sale',null),
-  (null,'Heating Bottle','High quality silicone material, size 240*50*105mm. Can be used as a home treatment for pain, pain and sports injuries or be used as a cold compression.',19.51,'Family Products',null,null),
-  (null,'Deborah Lippmann','Gel Lab Pro Nail Polish',26.00,'Beauty',null,null);`
-  let query = con.query(sql, function(err, result) {
-    if(err) {
-        console.log("An error occurred.");
-        throw err;
-    }
-    else {
-      console.log(result);
-    }
-  });
-});
-app.get('/createChats', (req, res) => {
-  sql = `create table chats(
-    chat_id bigint primary key auto_increment,
-    room_id int not null,
-    member_id bigint not null,
-    chat_content text(1000),
-    created_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    );`
-  let query = con.query(sql, function(err, result) {
-    if(err) {
-        console.log("An error occurred.");
-        throw err;
-    }
-    else {
-      console.log(result);
-    }
-  });
-});
-app.get('/createChatrooms', (req, res) => {
-  sql = `create table chatroom(
-    room_id int primary key auto_increment,
-    room_title varchar (50) not null,
-    topic_id int not null,
-    authority varchar(30) not null
-    );`
-  let query = con.query(sql, function(err, result) {
-    if(err) {
-        console.log("An error occurred.");
-        throw err;
-    }
-    else {
-      console.log(result);
-    }
-  });
-});
-
 app.get('/orders', (req, res) => {
   let sql = `SELECT * FROM members WHERE user_name = '${req.SuperMomSession.user}'`; 
   let query = con.query(sql, function(err, result) {
@@ -606,9 +495,9 @@ app.post('/searchProducts', (req, res) => {
 });
 
 app.post("/adminPageCheck", function (req, res) {
-  console.log(req.body.topic);
-  if (req.body.topic != undefined) {
-    sql = `INSERT INTO topic (topic_name) values ('${req.body.topic}')`
+  if (req.body.topic != '') {
+    console.log(req.body.topic);
+    sql = `INSERT INTO topic (topic_name, topic_desc) values ('${req.body.topic}', '${req.body.topicDes}')`;
     let query = con.query(sql, function(err, result) {
       if(err) {
           console.log("An error occurred.");
@@ -618,9 +507,9 @@ app.post("/adminPageCheck", function (req, res) {
       }
     });
   }
-  console.log(req.body.category);
-  if (req.body.category != undefined) {
-    sql = `INSERT INTO category (topic_name) values ('${req.body.category}')`
+  if (req.body.category != '') {
+    console.log(req.body.category);
+    sql = `INSERT INTO category (topic_name, topic_desc) values ('${req.body.category}', '${req.body.categoryDes}')`;
     let query = con.query(sql, function(err, result) {
       if(err) {
           console.log("An error occurred.");
@@ -631,38 +520,69 @@ app.post("/adminPageCheck", function (req, res) {
       }
     });
   }
-  res.sendFile(__dirname+"/adminPage.html");
+  renderingAdminPage(req, res);
 });
-app.get('/adminPageTableCreate', (req, res) => {
-  /*
-  create table topic (
-    topic_id int primary key auto_increment,
-    topic_name varchar(100),
-    topic_desc text(1000)
-  );
-  */
-  sql = `   
-    create table category (
-      topic_id int primary key auto_increment,
-      topic_name varchar(100),
-      topic_desc text(1000)
-    );`
+
+app.get("/deleteTopic*", function (req, res) {
+  var adr = req.url;
+  var q = url.parse(adr, true);
+  var qdata = q.query;
+  var id = qdata.topicID; 
+  sql = `DELETE FROM topic WHERE topic_id = ${id};`;
+  let query = con.query(sql, function(err, result) {
+    if(err) {
+        console.log("An error occurred.");
+        throw err;
+    }
+  });
+  renderingAdminPage(req, res);
+});
+
+app.get("/deleteCategory*", function (req, res) {
+  var adr = req.url;
+  var q = url.parse(adr, true);
+  var qdata = q.query;
+  var id = qdata.topicID; 
+  sql = `DELETE FROM category WHERE topic_id = ${id};`;
+  let query = con.query(sql, function(err, result) {
+    if(err) {
+        console.log("An error occurred.");
+        throw err;
+    }
+  });
+  renderingAdminPage(req, res);
+});
+
+function renderingAdminPage(request, response) {
+  sql = `SELECT * FROM topic`;
   let query = con.query(sql, function(err, result) {
     if(err) {
         console.log("An error occurred.");
         throw err;
     }
     else {
-      console.log(result);
+      sql2 = `SELECT * FROM category`;
+      let query2 = con.query(sql2, function(err, result2) {
+        if(err) {
+            console.log("An error occurred.");
+            throw err;
+        }
+        else {
+          response.render('adminPage', {
+            topics: result,
+            categories: result2
+          })
+        }
+      });
     }
   });
-});
+}
 
 app.get("/adminPage", function (request, response) {
-  response.sendFile(__dirname+"/adminPage.html");
+  renderingAdminPage(request, response);
 });
 app.post("/adminPage", function (request, response) {
-    response.sendFile(__dirname+"/adminPage.html");
+  renderingAdminPage(request, response);
 });
 
 app.get('/logout', function (req, res) {

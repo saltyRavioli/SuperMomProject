@@ -8,6 +8,7 @@ table
             th Name
             th Description
             th Price
+            th Category
             
     each item in items
         tr
@@ -15,6 +16,8 @@ table
             td= item.product_name 
             td= item.product_description 
             td= "$"+item.product_price
+            td= item.category
+            
 
 </div>
 
@@ -23,5 +26,13 @@ table
         <form action="http://localhost:8080/addToOrder" method="POST">
         <br> Add Product to Cart: <input type="text" name="productID" id="productID"><br>
         </form>
+        <form action="http://localhost:8080/searchProducts" method="POST">
+            select(name='category', id='category')
+                each item in categories
+                    option= item.topic_name
+            <button type="submit" id="submitButton">Submit</button>
+        </form>
+        td= price
     <body>
 </html>
+

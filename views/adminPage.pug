@@ -1,0 +1,47 @@
+<html>
+    <title> Adding Topics and Categories </title>
+    <body>
+        <h1>Adding Topics:</h1>
+        <form action="http://localhost:8080/adminPageCheck" method="POST">
+            a Topic: <input type="text" name="topic" id="topic"><br>
+            a Topic Description: <input type="text" name="topicDes" id="topicDes"><br>
+            a Category: <input type="text" name="category" id="category"><br>
+            a Category Description: <input type="text" name="categoryDes" id="categoryDes"><br>
+            <button type="submit" id="submitButton">Submit</button>
+        </form>
+    </body>
+</html>
+
+h2 Topics Table
+table
+    thead
+        tr
+            th ID
+            th Name
+            th Description
+            th Delete
+            
+    each item in topics
+        tr
+            td= item.topic_id
+            td= item.topic_name 
+            td= item.topic_desc
+            td 
+                a(href='http://localhost:8080/deleteTopic/?topicID='+item.topic_id, method="POST") Delete
+
+h2 CategoryTable
+table
+    thead
+        tr
+            th ID
+            th Name
+            th Description
+            th Delete
+            
+    each item in categories
+        tr
+            td= item.topic_id
+            td= item.topic_name 
+            td= item.topic_desc
+            td 
+                a(href='http://localhost:8080/deleteCategory/?topicID='+item.topic_id, method="POST") Delete
