@@ -1,0 +1,13 @@
+<html>
+    <head><title>Login Form</title></head>
+    <body>
+        <h1>Please enter your username and password:</h1>
+        <form action="http://localhost:8080/validLogin" method="POST">
+            input(type="text", name="uname", id="uname", value= username)
+            input(type="text", name="pword", id="pword", value= password)     
+            <button type="submit" id="submitButton">Submit</button>
+            <input type="checkbox" checked="checked" name="remember" id="remember" style="margin-bottom:15px"> Remember me
+            <a href="http://localhost:8080/enterEmail">Forgot Password?</a>
+        </form>
+    </body>
+</html>
