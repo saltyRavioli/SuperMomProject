@@ -16,15 +16,14 @@ nav#mySidebar.w3-sidebar.w3-bar-block.w3-collapse.w3-top(style='width:250px;back
     i.fa.fa-remove.w3-hide-large.w3-button.w3-display-topright(onclick='w3_close()')
     a.w3-bar-item.w3-button.w3-wide(href='#home', style='color:#64485c;') SuperMomsClub
   .w3-padding-64.w3-large.w3-text-grey(style='font-weight:bold')
-    a.w3-bar-item.w3-button(href='#', style='color:#64485c;') Back to main page
-    a.w3-bar-item.w3-button(href='#', style='color:#64485c;') Login
+    a.w3-bar-item.w3-button(href='index', style='color:#64485c;') Back to main page
     a.w3-bar-item.w3-button(href='#', style='color:#64485c;') Our VIP Promo
     a#myBtn.w3-button.w3-block.w3-left-align(style='color:#64485c;', onclick='myAccFunc()', href='javascript:void(0)')
       | Category 
       i.fa.fa-caret-down
         #demoAcc.w3-bar-block.w3-hide.w3-padding-large.w3-medium
-        each category in categories
-            a.w3-bar-item.w3-button(href= "#"+category.topic_name, style='color:#64485c;background-color:#c39e9e')= category.topic_name
+          each category in categories
+              a.w3-bar-item.w3-button(href= "#"+category.topic_name, style='color:#64485c;background-color:#c39e9e')= category.topic_name
     a.w3-bar-item.w3-button(href='#', style='color:#64485c;') Sale
   a.w3-bar-item.w3-button.w3-padding(href='#footer', style='color:#64485c;') Shipping Info
   a.w3-bar-item.w3-button.w3-padding(href='#footer', style='color:#64485c;') Payment Info
@@ -43,10 +42,15 @@ header.w3-bar.w3-top.w3-hide-large.w3-black.w3-xlarge
   .w3-hide-large(style='margin-top:83px')
   // Top header
   header.w3-container.w3-xlarge
-    p.w3-left Supper Mom Goodies
+    p.w3-left Super Mom Goodies
+  .w3-container
     p.w3-right
-      i.fa.fa-shopping-cart.w3-margin-right
-      i.fa.fa-search
+      form(action="searchProducts")
+        input#input(placeholder='search for product', type='text', name="keyword")
+        button#search-button.w3-button(type="submit", method="POST")
+          i.fa.fa-search
+      button#cart-button.w3-button(href="shoppingCart")
+        i.fa.fa-shopping-cart.w3-margin-right
   // Image header
   .w3-display-container.w3-container
     img(src='files/images/crib.jpg', alt='Jeans', style='height:400px;width:100%;filter:brightness(150%)')
@@ -56,7 +60,7 @@ header.w3-bar.w3-top.w3-hide-large.w3-black.w3-xlarge
       h1.w3-hide-small(style='color:#6d1919') COLLECTION 2020
       br
       p
-        a.w3-button.w3-light-gray.w3-padding-large.w3-large(href='#jeans') SHOP NOW
+        a.w3-button.w3-light-gray.w3-padding-large.w3-large(href='shop') SHOP NOW
 
     each category in categories
         .w3-container.w3-text-grey(id= category.topic_name)

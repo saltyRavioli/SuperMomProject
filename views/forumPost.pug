@@ -1,0 +1,293 @@
+doctype html
+| &lt;&gt;
+title W3.CSS Template
+meta(charset='UTF-8')
+meta(name='viewport', content='width=device-width, initial-scale=1')
+link(rel='stylesheet', href='https://www.w3schools.com/w3css/4/w3.css')
+link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Raleway')
+link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+link(href='http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css', rel='stylesheet')
+link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+script(src='https://code.jquery.com/jquery-3.2.1.min.js', integrity='sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f', crossorigin='anonymous')
+script(src='http://localhost:3001/js/jquery.emojiFace.js')
+style.
+  body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+  * {
+  box-sizing: border-box;
+  }
+  select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #c39e9e;
+  background-image: none;
+  }
+  /* Remove IE arrow */
+  select::-ms-expand {
+  display: none;
+  }
+  select {
+  flex: 1;
+  padding: 0 .5em;
+  color: #fff;
+  cursor: pointer;
+  }
+  .like__btn {
+  border: none;
+  background-color: #e74c3c;
+  color: white;
+  cursor: pointer;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  max-width: 200px;
+  transition: all ease 0.3s;
+  display: flex;
+  align-items: center;
+  &:hover {
+  background-color: rgba(#e74c3c, 0.8);
+  }
+  &:disabled {
+  background-color: #d4cfcf;
+  cursor: pointer;
+  }
+  }
+  .like__icon {
+  font-size: 1.2rem;
+  margin-right: 0.3rem;
+  }
+  .like__number {
+  font-size: 0.8rem;
+  }
+  .container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+//
+  w3-content defines a container for fixed size centered content,
+  and is wrapped around the whole page content, except for the footer in this example
+.w3-content(style='max-width:1400px')
+  // Navbar (sit on top)
+  .w3-top
+    #myNavbar.w3-bar.w3-white.w3-card
+      a.w3-bar-item.w3-button.w3-wide(href='#home', style='color:#64485c;') SuperMomsClub
+      // Right-sided navbar links
+      .w3-right.w3-hide-small
+        a.w3-bar-item.w3-button(href='#about', style='color:#64485c;') ABOUT
+        a.w3-bar-item.w3-button(href='#event', style='color:#64485c;')
+          i.fa.fa-th(style='color:#64485c;')
+          |  Event
+        a.w3-bar-item.w3-button(href='#shop', style='color:#64485c;')
+          i.fa.fa-shopping-bag(style='color:#64485c;')
+          |  Shop
+        a.w3-bar-item.w3-button(href='#shopcart', style='color:#64485c;')
+          i.fa.fa-shopping-cart(style='color:#64485c;', aria-hidden='true')
+          |  ShoppingCart
+        a.w3-bar-item.w3-button(href='#contact', style='color:#64485c;')
+          i.fa.fa-envelope(style='color:#64485c;')
+          |  Discussion
+        a.w3-bar-item.w3-button(href='#', style='color:#64485c;', onclick="document.getElementById('id01').style.display='block'")
+          i.fa.fa-user(style='color:#64485c;')
+          |  SignUp
+        a.w3-bar-item.w3-button(href='#', style='color:#64485c;', onclick="document.getElementById('id02').style.display='block'")
+          i.fa.fa-user(style='color:#64485c;')
+          |  LogIn
+      // Hide right-floated links on small screens and replace them with a menu icon
+      a.w3-bar-item.w3-button.w3-right.w3-hide-large.w3-hide-medium(href='javascript:void(0)', onclick='w3_open()')
+        i.fa.fa-bars
+  // Sidebar on small screens when clicking the menu icon
+  nav#mySidebar.w3-sidebar.w3-bar-block.w3-black.w3-card.w3-animate-left.w3-hide-medium.w3-hide-large(style='display:none')
+    a.w3-bar-item.w3-button.w3-large.w3-padding-16(href='javascript:void(0)', onclick='w3_close()') Close &times;
+    a.w3-bar-item.w3-button(href='#about', onclick='w3_close()') ABOUT
+    a.w3-bar-item.w3-button(href='#team', onclick='w3_close()') TEAM
+    a.w3-bar-item.w3-button(href='#event', onclick='w3_close()') EVENT
+    a.w3-bar-item.w3-button(href='#pricing', onclick='w3_close()') PRICING
+    a.w3-bar-item.w3-button(href='#contact', onclick='w3_close()') CONTACT
+  // Header
+  header.w3-container.w3-center.w3-padding-32(style='background-color: #c39e9e')
+    br
+    h1
+      b Super Moms Forum
+    p
+      | Question, Answer, Share with
+      span.w3-tag.w3-pale-red Super Moms Club
+  // Grid
+  .w3-row
+    // Blog left side
+    .w3-col.l2
+      .w3-card-4.w3-margin
+        .w3-container
+    // Blog entries
+    .w3-col.l8.s12.w3-center
+      // Blog entry
+      .w3-card-4.w3-margin.w3-white
+        .w3-container
+          h3
+            b TITLE HEADING
+          h5
+            | Title description, 
+            span.w3-opacity April 7, 2020
+        .w3-container
+          p
+            | Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
+            | tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.
+          p
+            | Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
+            | tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.
+          img.w3-left.w3-margin-right(src='http://localhost:3001/images/sforum1.jpg', alt='Image', style='width:250px')
+          img.w3-left.w3-margin-right(src='http://localhost:3001/images/sforum2.jpg', alt='Image', style='width:250px')
+          img.w3-left.w3-margin-right(src='http://localhost:3001/images/sforum3.jpg', alt='Image', style='width:250px')
+          .w3-row
+            .w3-col(style='width:190%')
+              p
+                span.w3-margin.w3-button.w3-pale-red
+                  b pin
+      hr
+      - var x = 0;
+      - while (x<comments.length) {
+        - if (x%2!=0)
+          .w3-card-4.w3-margin(style='background-color: #c39e9e')
+            .w3-container
+              br
+              p= comments[x].chat_content
+            .w3-container.w3-tiny
+              .w3-row
+                .w3-col.m8.s12
+                  p  
+                .w3-col.m2.s12
+                  p= comments[x].user_name
+                .w3-col.m2.w3-hide-small
+                  p= comments[x].created_ts
+            .w3-container
+              .w3-col
+                button.like__btn.animated
+                  i.like__icon.fa.fa-heart
+                  span.like__number 0
+            .w3-container
+              .w3-col
+                p        
+          hr
+          -x++;
+        - else 
+          .w3-card-4.w3-margin(style='background-color: #c39e9e')
+            .w3-container
+              br
+              p= comments[x].chat_content
+            .w3-container.w3-tiny
+              .w3-row
+                .w3-col.m8.s12
+                  p  
+                .w3-col.m2.s12
+                  p= comments[x].user_name
+                .w3-col.m2.w3-hide-small
+                  p= comments[x].created_ts
+            .w3-container
+              .w3-col
+                button.like__btn.animated
+                  i.like__icon.fa.fa-heart
+                  span.like__number 0
+            .w3-container
+              .w3-col
+                p        
+          hr
+          -x++;
+      - }
+      // END BLOG ENTRIES
+    // POST AREA
+    // Blog left side
+    .w3-col.l1
+      .w3-card-4.w3-margin
+        .w3-container
+    .w3-col.l12.s12
+      .w3-row-padding
+        .w3-col.m12
+          .w3-card.w3-round(style='background-color: #c39e9e')
+            .w3-container.w3-padding.w3-left-align
+              h6.w3-opacity Share your idea with us!
+              // Textarea
+              form(action = 'addComment')
+                textarea#faceText.w3-border.w3-padding.w3-left-align(placeholder='Some great advice', name='content')
+                button.w3-button.w3-theme.w3-right(type='submit', method="POST")
+                  i.fa.fa-pencil
+                  |  &nbsp;Post
+    // Blog right side
+    .w3-col.l1
+      .w3-card-4
+        .w3-container
+    // END GRID
+  br
+  // END w3-content
+// Footer
+footer.w3-container.w3-dark-grey.w3-padding-32.w3-margin-top
+  button.w3-button.w3-black.w3-disabled.w3-padding-large.w3-margin-bottom Previous
+  button.w3-button.w3-black.w3-padding-large.w3-margin-bottom Next &raquo;
+script.
+  let button = document.querySelector(".like-button");
+  button.addEventListener("click", function(e) {
+  e.preventDefault();
+  this.classList.toggle("active");
+  this.classList.add("animated");
+  generateClones(this);
+  });
+  function generateClones(button) {
+  let clones = randomInt(2, 4);
+  for (let it = 1; it <= clones; it++) {
+  let clone = button.querySelector("svg").cloneNode(true),
+  size = randomInt(5, 16);
+  button.appendChild(clone);
+  clone.setAttribute("width", size);
+  clone.setAttribute("height", size);
+  clone.style.position = "absolute";
+  clone.style.transition =
+  "transform 0.5s cubic-bezier(0.12, 0.74, 0.58, 0.99) 0.3s, opacity 1s ease-out .5s";
+  let animTimeout = setTimeout(function() {
+  clearTimeout(animTimeout);
+  clone.style.transform =
+  "translate3d(" +
+  (plusOrMinus() * randomInt(10, 25)) +
+  "px," +
+  (plusOrMinus() * randomInt(10, 25)) +
+  "px,0)";
+  clone.style.opacity = 0;
+  }, 1);
+  let removeNodeTimeout = setTimeout(function() {
+  clone.parentNode.removeChild(clone);
+  clearTimeout(removeNodeTimeout);
+  }, 900);
+  let removeClassTimeout = setTimeout( function() {
+  button.classList.remove("animated")
+  }, 600);
+  }
+  }
+  function plusOrMinus() {
+  return Math.random() < 0.5 ? -1 : 1;
+  }
+  function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  $('.like__btn').on('click', function(){
+  // Check if it's already been clicked
+  if (!$(this).hasClass('like__btn--disabled')) {
+  // Update the number
+  updated_likes = parseInt($('.like__btn span').html()) + 1;
+  $('.like__btn span').html(updated_likes);
+  }
+  // Make btn disabled
+  $(this).attr('disabled', true).addClass('tada');
+  });
+script(type='text/javascript').
+  $(function(){
+  $('#faceText').emojiInit({
+  fontSize:20,
+  success : function(data){
+  },
+  error : function(data,msg){
+  }
+  });
+  });

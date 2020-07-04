@@ -1,0 +1,86 @@
+doctype html
+head
+  title W3.CSS Template
+  meta(charset='UTF-8')
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+  link(rel='stylesheet', href='https://www.w3schools.com/w3css/4/w3.css')
+  link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Raleway')
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+  style.
+    * {
+    box-sizing: border-box;
+    }
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif;
+    color: #64485c}
+    body, html {
+    height: 100%;
+    line-height: 1.8;
+    }
+    div.a {
+    width: auto;
+    border: 1px solid black;
+    }
+    .down_img {
+    background-position: center;
+    height: 128px;
+    background-image: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)),url('files/images/title.jpg');
+    background-repeat: no-repeat;
+    min-height: 100%;
+    }
+    /* Style the side navigation */
+    .sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #c39e9e;
+    overflow-x: hidden;
+    }
+    /* Side navigation links */
+    .sidenav a {
+    color: white;
+    padding: 16px;
+    text-decoration: none;
+    display: block;
+    }
+    /* Change color on hover */
+    .sidenav a:hover {
+    background-color: #f6f0f1;
+    color: #c39e9e;
+    }
+    /* Style the content */
+    .content {
+    margin-left: 200px;
+    padding-left: 20px;
+    }
+    .aha {
+    position: fixed;
+    bottom: 0;
+    width:100%;
+    max-width: 256px;
+    background-image: url('files/images/meeting.jpg');
+    padding-left: 64px;
+    }
+    .footer {
+    width: 100%;
+    height: 128px;
+    bottom: 0;
+    background-size: contain;
+    background-repeat: repeat;
+    background-image: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)),url('files/images/meeting.jpg');
+    }​
+.sidenav(style='padding-top: 32px')
+  a(href='index') Back to Main Menu
+  a(href=''#) ChatRoom
+  a(href='shop') Shop
+.content
+  h2(style='padding-top:64px') event.event_title
+  p(style='padding-top:32px')= event.event_descp
+  p
+    a.w3-button.w3-pale-red(href='registerEvent', style='color: #64485c')
+      i.fa.fa-th &nbsp;
+      |  Register For Event
+br
+.footer

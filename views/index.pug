@@ -252,13 +252,13 @@ style.
       a.w3-bar-item.w3-button(href='#event', style='color:#64485c;')
         i.fa.fa-th(style='color:#64485c;')
         |  Event
-      a.w3-bar-item.w3-button(href='#shop', style='color:#64485c;')
+      a.w3-bar-item.w3-button(href='/shop', style='color:#64485c;')
         i.fa.fa-shopping-bag(style='color:#64485c;')
         |  Shop
-      a.w3-bar-item.w3-button(href='#shopcart', style='color:#64485c;')
+      a.w3-bar-item.w3-button(href='/shoppingCart', style='color:#64485c;')
         i.fa.fa-shopping-cart(style='color:#64485c;', aria-hidden='true')
         |  ShoppingCart
-      a.w3-bar-item.w3-button(href='#contact', style='color:#64485c;')
+      a.w3-bar-item.w3-button(href='forum', style='color:#64485c;')
         i.fa.fa-envelope(style='color:#64485c;')
         |  Discussion
       if (username==null || username=="")
@@ -436,38 +436,44 @@ header#home.bgimg-1.w3-display-container.w3-grayscale-min
     br
   .w3-row-padding.w3-center(style="background-image: url('files/images/bg4.jpg');\
   background-size:cover;")
-    .w3-row.event_img1.w3-card(style='margin-top:32px')
-      p.w3-xlarge EventA
+    .w3-row.event_img1.w3-card(style='margin-top:32px', href="displayEvent")
+      p.w3-xlarge 
+        a(href='displayEvent', target='_blank', style='text-align:right') EVENTA
       p.w3-small 2020-01-01(Sun)
       p
         | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
         | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
     .w3-row.w3-card(style='margin-top:32px')
-      p.w3-xlarge EventA
+      p.w3-xlarge
+        a(href='displayEvent', target='_blank', style='text-align:right') EVENTA
       p.w3-small 2020-01-01(Sun)
       p
         | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
         | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
     .w3-row.event_img1.w3-card(style='margin-top:32px')
-      p.w3-xlarge EventA
+      p.w3-xlarge
+        a(href='displayEvent', target='_blank', style='text-align:right') EVENTA
       p.w3-small 2020-01-01(Sun)
       p
         | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
         | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
     .w3-row.w3-card(style='margin-top:32px')
-      p.w3-xlarge EventA
+      p.w3-xlarge
+        a(href='displayEvent', target='_blank', style='text-align:right') EVENTA
       p.w3-small 2020-01-01(Sun)
       p
         | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
         | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
     .w3-row.event_img1.w3-card(style='margin-top:32px')
-      p.w3-xlarge EventA
+      p.w3-xlarge
+        a(href='displayEvent', target='_blank', style='text-align:right') EVENTA
       p.w3-small 2020-01-01(Sun)
       p
         | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
         | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
     .w3-row.w3-card(style='margin-top:32px; margin-bottom: 32px')
-      p.w3-xlarge EventA
+      p.w3-xlarge
+        a(href='displayEvent', target='_blank', style='text-align:right') EVENTA
       p.w3-small 2020-01-01(Sun)
       p
         | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.

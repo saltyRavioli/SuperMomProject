@@ -24,10 +24,10 @@ head
       a.w3-bar-item.w3-button(href='#event', style='color:#64485c;')
         i.fa.fa-th(style='color:#64485c;')
         |  Event
-      a.w3-bar-item.w3-button(href='#shop', style='color:#64485c;')
+      a.w3-bar-item.w3-button(href='/shop', style='color:#64485c;')
         i.fa.fa-shopping-bag(style='color:#64485c;')
         |  Shop
-      a.w3-bar-item.w3-button(href='#shopcart', style='color:#64485c;')
+      a.w3-bar-item.w3-button(href='/shoppingCart', style='color:#64485c;')
         i.fa.fa-shopping-cart(style='color:#64485c;', aria-hidden='true')
         |  ShoppingCart
       a.w3-bar-item.w3-button(href='#contact', style='color:#64485c;')
@@ -53,7 +53,7 @@ nav#mySidebar.w3-sidebar.w3-bar-block.w3-black.w3-card.w3-animate-left.w3-hide-m
 .wrap.cf
   .heading.cf
     h1 My Cart
-    a.continue(href='#') Continue Shopping
+    a.continue(href='/shop') Continue Shopping
   .cart
     //
       <ul class="tableHead">
@@ -76,6 +76,7 @@ nav#mySidebar.w3-sidebar.w3-bar-block.w3-black.w3-card.w3-animate-left.w3-hide-m
               p= "$" + items[x].product_price
             .cartSection.removeWrap
               a.remove(href='deleteShoppingCart?id='+items[x].id) x
+        -x++;
       - else 
         li.items.even
           .infoWrap
@@ -87,6 +88,7 @@ nav#mySidebar.w3-sidebar.w3-bar-block.w3-black.w3-card.w3-animate-left.w3-hide-m
               p= "$" + items[x].product_price
             .cartSection.removeWrap
               a.remove(href='deleteShoppingCart?id='+items[x].id) x
+        -x++;
     - }
         .special
           .specialContent Free gift with purchase!, gift wrap, etc!!

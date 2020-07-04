@@ -1,0 +1,350 @@
+doctype html
+title W3.CSS Template
+meta(charset='UTF-8')
+meta(name='viewport', content='width=device-width, initial-scale=1')
+link(rel='stylesheet', href='https://www.w3schools.com/w3css/4/w3.css')
+link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Raleway')
+link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+link(href='http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css', rel='stylesheet')
+style.
+  body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+  * {
+  box-sizing: border-box;
+  }
+  #myInput {
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  }
+  select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #c39e9e;
+  background-image: none;
+  }
+  /* Remove IE arrow */
+  select::-ms-expand {
+  display: none;
+  }
+  /* Custom Select */
+  .select {
+  position: relative;
+  display: flex;
+  width: 20em;
+  height: 3em;
+  line-height: 3;
+  background: #2c3e50;
+  overflow: hidden;
+  border-radius: .25em;
+  }
+  select {
+  flex: 1;
+  padding: 0 .5em;
+  color: #fff;
+  cursor: pointer;
+  }
+  /* Arrow */
+  .select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  background: #c39e9e;
+  cursor: pointer;
+  pointer-events: none;
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+  }
+  /* Transition */
+  .select:hover::after {
+  color: #64485c;
+  }
+  #w3-btn:after{
+  background-color: #64485c;
+  color: #c39e9e;
+  }
+//
+  w3-content defines a container for fixed size centered content,
+  and is wrapped around the whole page content, except for the footer in this example
+.w3-content(style='max-width:1400px')
+  // Navbar (sit on top)
+  .w3-top
+    #myNavbar.w3-bar.w3-white.w3-card
+      a.w3-bar-item.w3-button.w3-wide(href='#home', style='color:#64485c;') SuperMomsClub
+      // Right-sided navbar links
+      .w3-right.w3-hide-small
+        a.w3-bar-item.w3-button(href='#about', style='color:#64485c;') ABOUT
+        a.w3-bar-item.w3-button(href='#event', style='color:#64485c;')
+          i.fa.fa-th(style='color:#64485c;')
+          |  Event
+        a.w3-bar-item.w3-button(href='#shop', style='color:#64485c;')
+          i.fa.fa-shopping-bag(style='color:#64485c;')
+          |  Shop
+        a.w3-bar-item.w3-button(href='#shopcart', style='color:#64485c;')
+          i.fa.fa-shopping-cart(style='color:#64485c;', aria-hidden='true')
+          |  ShoppingCart
+        a.w3-bar-item.w3-button(href='#contact', style='color:#64485c;')
+          i.fa.fa-envelope(style='color:#64485c;')
+          |  Discussion
+        a.w3-bar-item.w3-button(href='#', style='color:#64485c;', onclick="document.getElementById('id01').style.display='block'")
+          i.fa.fa-user(style='color:#64485c;')
+          |  SignUp
+        a.w3-bar-item.w3-button(href='#', style='color:#64485c;', onclick="document.getElementById('id02').style.display='block'")
+          i.fa.fa-user(style='color:#64485c;')
+          |  LogIn
+      // Hide right-floated links on small screens and replace them with a menu icon
+      a.w3-bar-item.w3-button.w3-right.w3-hide-large.w3-hide-medium(href='javascript:void(0)', onclick='w3_open()')
+        i.fa.fa-bars
+  // Sidebar on small screens when clicking the menu icon
+  nav#mySidebar.w3-sidebar.w3-bar-block.w3-black.w3-card.w3-animate-left.w3-hide-medium.w3-hide-large(style='display:none')
+    a.w3-bar-item.w3-button.w3-large.w3-padding-16(href='javascript:void(0)', onclick='w3_close()') Close &times;
+    a.w3-bar-item.w3-button(href='#about', onclick='w3_close()') ABOUT
+    a.w3-bar-item.w3-button(href='#team', onclick='w3_close()') TEAM
+    a.w3-bar-item.w3-button(href='#event', onclick='w3_close()') EVENT
+    a.w3-bar-item.w3-button(href='#pricing', onclick='w3_close()') PRICING
+    a.w3-bar-item.w3-button(href='#contact', onclick='w3_close()') CONTACT
+  // Header
+  header.w3-container.w3-center.w3-padding-32
+    br
+    h1
+      b Super Moms Forum
+    p
+      | Question, Answer, Share with
+      span.w3-tag.w3-pale-red Super Moms Club
+  // Grid
+  .w3-row
+    // Blog entries
+    .w3-col.l8.s12
+      // Blog entry
+      .w3-card-4.w3-margin.w3-white
+        img(src='http://localhost:3001/images/forum2.jpg', alt='Nature', style='width:100%')
+        .w3-container
+          h3
+            b
+              a(href='forumPost', target='_blank', style='text-align:right') TITLE HEADING
+          h5
+            | Title description, 
+            span.w3-opacity April 7, 2020
+        .w3-container
+          p
+            | Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
+            | tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.
+          .w3-row
+            .w3-col.m8.s12
+              p
+                button.w3-button.w3-padding-large.w3-white.w3-border
+                  b READ MORE &raquo;
+            .w3-col.m4.w3-hide-small
+              p
+                span.w3-padding-large.w3-right
+                  b Comments &nbsp;
+                  span.w3-tag 0
+      hr
+      // Blog entry
+      .w3-card-4.w3-margin.w3-white
+        img(src='http://localhost:3001/images/forum1.jpg', alt='Norway', style='width:100%')
+        .w3-container
+          h3
+            b
+              a(href='forumPost', target='_blank', style='text-align:right') BLOG ENTRY
+          h5
+            | Title description, 
+            span.w3-opacity April 2, 2020
+        .w3-container
+          p
+            | Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
+            | tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.
+          .w3-row
+            .w3-col.m8.s12
+              p
+                button.w3-button.w3-padding-large.w3-white.w3-border
+                  b READ MORE &raquo;
+            .w3-col.m4.w3-hide-small
+              p
+                span.w3-padding-large.w3-right
+                  b Comments &nbsp;
+                  span.w3-badge 2
+      // Blog entry
+      .w3-card-4.w3-margin.w3-white
+        img(src='http://localhost:3001/images/forum3.jpg', alt='Nature', style='width:100%')
+        .w3-container
+          h3
+            b
+              a(href='forumPost', target='_blank', style='text-align:right') TITLE HEADING
+          h5
+            | Title description, 
+            span.w3-opacity April 7, 2020
+        .w3-container
+          p
+            | Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
+            | tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.
+          .w3-row
+            .w3-col.m8.s12
+              p
+                button.w3-button.w3-padding-large.w3-white.w3-border
+                  b READ MORE &raquo;
+            .w3-col.m4.w3-hide-small
+              p
+                span.w3-padding-large.w3-right
+                  b Comments &nbsp;
+                  span.w3-tag 0
+      hr
+      // Blog entry
+      .w3-card-4.w3-margin.w3-white
+        img(src='http://localhost:3001/images/forum2.jpg', alt='Norway', style='width:100%')
+        .w3-container
+          h3
+            b 
+              a(href='forumPost', target='_blank', style='text-align:right') BLOG ENTRY
+          h5
+            | Title description, 
+            span.w3-opacity April 2, 2020
+        .w3-container
+          p
+            | Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
+            | tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.
+          .w3-row
+            .w3-col.m8.s12
+              p
+                button.w3-button.w3-padding-large.w3-white.w3-border
+                  b READ MORE &raquo;
+            .w3-col.m4.w3-hide-small
+              p
+                span.w3-padding-large.w3-right
+                  b Comments &nbsp;
+                  span.w3-badge 2
+      hr
+      // Blog entry
+      .w3-card-4.w3-margin.w3-white
+        img(src='http://localhost:3001/images/forum1.jpg', alt='Nature', style='width:100%')
+        .w3-container
+          h3
+            b TITLE HEADING
+          h5
+            | Title description, 
+            span.w3-opacity April 7, 2020
+        .w3-container
+          p
+            | Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
+            | tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.
+          .w3-row
+            .w3-col.m8.s12
+              p
+                button.w3-button.w3-padding-large.w3-white.w3-border
+                  b READ MORE &raquo;
+            .w3-col.m4.w3-hide-small
+              p
+                span.w3-padding-large.w3-right
+                  b Comments &nbsp;
+                  span.w3-tag 0
+      hr
+      // Blog entry
+      .w3-card-4.w3-margin.w3-white
+        img(src='http://localhost:3001/images/forum3.jpg', alt='Norway', style='width:100%')
+        .w3-container
+          h3
+            b BLOG ENTRY
+          h5
+            | Title description, 
+            span.w3-opacity April 2, 2020
+        .w3-container
+          p
+            | Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
+            | tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.
+          .w3-row
+            .w3-col.m8.s12
+              p
+                button.w3-button.w3-padding-large.w3-white.w3-border
+                  b READ MORE &raquo;
+            .w3-col.m4.w3-hide-small
+              p
+                span.w3-padding-large.w3-right
+                  b Comments &nbsp;
+                  span.w3-badge 2
+      // END BLOG ENTRIES
+    // Introduction menu
+    .w3-col.l4
+      // About Card
+      .w3-card.w3-margin.w3-margin-top
+        .w3-container.w3-white
+          br
+          input#myInput(type='text', placeholder='Search for Post...', title='Type')
+          p   
+          .select
+            select#slct(name='slct')
+              option filter by time
+              option old at first
+              option new at first
+          br
+          .select
+            select#slct(name='slct')
+              option filter by privilage
+              option show private rooms
+              option show all
+          br
+      hr
+      // Posts
+      .w3-card.w3-margin
+        .w3-container.w3-padding
+          h4 Popular Posts
+        ul.w3-ul.w3-hoverable.w3-white
+          li.w3-padding-16
+            img.w3-left.w3-margin-right(src='http://localhost:3001/images/sforum1.jpg', alt='Image', style='width:50px')
+            span.w3-large Lorem
+            br
+            span Sed mattis nunc
+          li.w3-padding-16
+            img.w3-left.w3-margin-right(src='http://localhost:3001/images/sforum2.jpg', alt='Image', style='width:50px')
+            span.w3-large Ipsum
+            br
+            span Praes tinci sed
+          li.w3-padding-16
+            img.w3-left.w3-margin-right(src='http://localhost:3001/images/sforum3.jpg', alt='Image', style='width:50px')
+            span.w3-large Dorum
+            br
+            span Ultricies congue
+          li.w3-padding-16.w3-hide-medium.w3-hide-small
+            img.w3-left.w3-margin-right(src='http://localhost:3001/images/sforum4.jpg', alt='Image', style='width:50px')
+            span.w3-large Mingsum
+            br
+            span Lorem ipsum dipsum
+      hr
+      // Labels / tags
+      .w3-card.w3-margin
+        .w3-container.w3-padding
+          h4 Tags
+        .w3-container.w3-white
+          p
+            span.w3-btn.w3-margin-bottom(style='background-color: #c39e9e; color: whitesmoke') Travel
+            span.w3-btn.w3-margin-bottom(style='background-color: #c39e9e; color: whitesmoke') New York
+            span.w3-btn.w3-margin-bottom(style='background-color: #c39e9e; color: whitesmoke') London
+            span.w3-btn.w3-margin-bottom(style='background-color: #c39e9e; color: whitesmoke') IKEA
+            span.w3-btn.w3-margin-bottom(style='background-color: #c39e9e; color: whitesmoke') NORWAY
+            span.w3-btn.w3-margin-bottom(style='background-color: #c39e9e; color: whitesmoke') DIY
+            span.w3-btn.w3-margin-bottom(style='background-color: #c39e9e; color: whitesmoke') Ideas
+            span.w3-btn.w3-margin-bottom(style='background-color: #c39e9e; color: whitesmoke') Baby
+            span.w3-btn.w3-margin-bottom(style='background-color: #c39e9e; color: whitesmoke') Family
+            span.w3-btn.w3-margin-bottom(style='background-color: #c39e9e; color: whitesmoke') News
+            span.w3-btn.w3-margin-bottom(style='background-color: #c39e9e; color: whitesmoke') Clothing
+            span.w3-btn.w3-margin-bottom(style='background-color: #c39e9e; color: whitesmoke') Shopping
+            span.w3-btn.w3-margin-bottom(style='background-color: #c39e9e; color: whitesmoke') Sports
+            span.w3-btn.w3-margin-bottom(style='background-color: #c39e9e; color: whitesmoke') Games
+      // END Introduction Menu
+    // END GRID
+  br
+  // END w3-content
+// Footer
+footer.w3-container.w3-dark-grey.w3-padding-32.w3-margin-top
+  button.w3-button.w3-black.w3-disabled.w3-padding-large.w3-margin-bottom Previous
+  button.w3-button.w3-black.w3-padding-large.w3-margin-bottom Next &raquo;

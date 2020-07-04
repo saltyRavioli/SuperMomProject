@@ -616,27 +616,49 @@ app.post('/addToOrder*', (req, res) => {
   });
 });
 
-app.post('/searchProducts', (req, res) => {
-  console.log(req.body.category);
-  let sql = `SELECT * FROM products WHERE category = '${req.body.category}'`;
-  let query = con.query(sql, function(err, rows, fields) {
-      if(err) {
-          console.log("An error occurred.");
-          throw err;
-      }
-      let sql2 = `SELECT * FROM category`;
+app.get('/searchProducts*', (req, res) => {
+  var adr = req.url;
+  var q = url.parse(adr, true);
+  var qdata = q.query;
+  var keyword = qdata.keyword;
+  console.log(keyword)
+  con.query(`select * from products WHERE product_name LIKE '%${keyword}%'`, function (err, result, field) {
+    if (err) {
+        console.log(err)
+    } else {
+      let sql2 = `SELECT * FROM category ORDER BY topic_name`;
       let query2 = con.query(sql2, function(err, rows2, fields) {
         if(err) {
             console.log("An error occurred.");
             throw err;
         }
-        res.render('orders', { // 'posts' <-- whatever's in here should match the filename in the views folder
+        res.render('shop', { // 'posts' <-- whatever's in here should match the filename in the views folder
             title: 'Product Details',
-            items: rows,
+            items: result,
             categories: rows2
-        })
-    });
+          })
+        });
+    }
   });
+  // let sql = `SELECT * FROM products WHERE category = '${req.body.category}'`;
+  // let query = con.query(sql, function(err, rows, fields) {
+  //     if(err) {
+  //         console.log("An error occurred.");
+  //         throw err;
+  //     }
+  //     let sql2 = `SELECT * FROM category`;
+  //     let query2 = con.query(sql2, function(err, rows2, fields) {
+  //       if(err) {
+  //           console.log("An error occurred.");
+  //           throw err;
+  //       }
+  //       res.render('orders', { // 'posts' <-- whatever's in here should match the filename in the views folder
+  //           title: 'Product Details',
+  //           items: rows,
+  //           categories: rows2
+  //       })
+  //   });
+  // });
 });
 
 app.post("/adminPageCheck", function (req, res) {
@@ -711,11 +733,11 @@ app.get("/deleteShoppingCart*", function (req, res) {
         throw err;
     }
   });
-  if (originURL=="shoppingCart") {
+  // if (originURL=="shoppingCart") {
     renderingShoppingCart(req, res);
-  }
-  else
-    renderingAdminPage(req, res);
+  // }
+  // else
+  //   renderingAdminPage(req, res);
 });
 app.get("/deleteUser*", function (req, res) {
   var adr = req.url;
@@ -730,6 +752,148 @@ app.get("/deleteUser*", function (req, res) {
     }
   });
   renderingAdminPage(req, res);
+});
+
+app.get('/displayEvent*', (req, res) => {
+  res.sendFile(__dirname + "/event_dis.html");
+  // var adr = req.url;
+  // var q = url.parse(adr, true);
+  // var qdata = q.query;
+  // var name = qdata.name; 
+  // let sql = `SELECT * FROM eventInfo WHERE event_title = '${name}'`;
+  // let query = con.query(sql, function(err, rows, fields) {
+  //     if(err) {
+  //         console.log("An error occurred.");
+  //         throw err;
+  //     }
+  //     var id = rows[0].event_id;
+  //     let sql2 = `SELECT * FROM event_member WHERE event_member.event_id = '${id}'`;
+  //     let query2 = con.query(sql, function(err, rows2, fields) {
+  //         if(err) {
+  //             console.log("An error occurred.");
+  //             throw err;
+  //         }
+  //         res.render('eventDes', {
+  //             event: rows,
+  //             attendees: rows2
+  //         })
+  //     });
+  //     res.render('eventDes', {
+  //         event: rows
+
+  //     })
+  // });
+});
+app.get('/forum', function (req,res) {
+  res.render("forum");
+});
+
+app.get('/forumPost', (req, res) => {
+  con.query(`SELECT * FROM chats INNER JOIN members ON (chats.member_id = members.memberID)`, function (err, result, field) {
+    if (err) {
+        console.log(err)
+    } else {
+      res.render('forumPost', {
+        comments: result,
+      })
+    }
+  });
+});
+
+app.post('/searchPost', function (req,res) {
+  if (req.body.time === 'old at first') { /* filter by time */
+      if (req.body.authority === 'show all') {
+          dbConnection.query(`select *from chatroom where room_title = %'${req.body.keyword}'% order by created_ts`, function (err, result, field) {
+              if (err) throw err;
+              res.render('chatrooms', {
+                  title: 'Chatroom Details',
+                  items: rows
+              })
+                  })
+      } else {
+          dbConnection.query(`select *from chatroom where room_title = %'${req.body.keyword}'% AND authority = private order by created_ts`, function (err, result, field) {
+              if (err) {
+                  console.log(err)
+              } else {
+                  res.render('chatrooms', {
+                      title: 'Chatroom Details',
+                      items: rows
+                  })
+              }
+          })
+      }
+  } else {
+      if (req.body.authority === 'show all') {
+          dbConnection.query(`select *from chatroom where room_title = %'${req.body.keyword}'% order by created_ts DESC`, function (err, result, field) {
+              if (err) throw err;
+              res.render('chatrooms', {
+                  title: 'Chatroom Details',
+                  items: rows
+              })
+          })
+      } else {
+          dbConnection.query(`select *from chatroom where room_title = %'${req.body.keyword}'% AND authority = private order by created_ts DESC`, function (err, result, field) {
+              if (err) {
+                  console.log(err)
+              } else {
+                  res.render('chatrooms', {
+                      title: 'Chatroom Details',
+                      items: rows
+                  })
+              }
+          })
+      }
+  }
+
+});
+
+// addcomment
+app.get('/addComment*', function (req, res) {
+  var adr = req.url;
+  var q = url.parse(adr, true);
+  var qdata = q.query;
+  var content = qdata.content; //asking for the token field in the url
+  con.query(`insert into chats (member_id, chat_content, room_id) values (${req.SuperMomSession.memberID},'${content}', 1)`, function (err, result, field) {
+      if (err) {
+          console.log(err)
+      } else {
+        con.query(`SELECT * FROM chats INNER JOIN members ON (chats.member_id = members.memberID)`, function (err, result, field) {
+          if (err) {
+              console.log(err)
+          } else {
+            res.render('forumPost', {
+              comments: result,
+            })
+          }
+        });
+      }
+  })
+})
+
+//register for event
+app.post('/RegisterEvent', function (req, res) {
+  // get event id
+  dbConnection.query(`select event_id from event_info where event_title = EventA`, function (err, result, field) {
+      if (err) {
+          console.log(err)
+      } else {
+          var event = result[0].event_id;
+          if (document.cookie === null) {
+              res.sendFile(__dirname + "/login.html")
+          } else {
+              var user_id = req.SupermomSession.memberID;
+              dbConnection.query(`insert into event_member values ?`, [[null, event, user_id]], function (err, result, field) {
+                  if (err) {
+                      console.log(err)
+                  } else {
+                      popup.alert({
+                          content: 'You are sucessfully registered to the event!'
+                      })
+                  }
+              })
+          }
+      }
+  })
 });
 
 function renderingAdminPage(request, response) {
