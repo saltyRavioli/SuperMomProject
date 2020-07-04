@@ -1,5 +1,5 @@
 <html>
-    <title> Adding Topics and Categories </title>
+    <title> Admin Console </title>
     <body>
         <h1>Adding Topics:</h1>
         <form action="http://localhost:8080/adminPageCheck" method="POST">
@@ -45,3 +45,66 @@ table
             td= item.topic_desc
             td 
                 a(href='http://localhost:8080/deleteCategory/?topicID='+item.topic_id, method="POST") Delete
+
+
+h2 Shopping Cart
+table
+    thead
+        tr
+            th ID
+            th Name
+            th Customer
+            th Description
+            th Price
+            th Category
+            
+    each item in shoppingCart
+        tr
+            td= item.id
+            td= item.product_name 
+            td= item.user_name 
+            td= item.product_description 
+            td= "$"+item.product_price
+            td= item.category
+            td 
+                a(href='http://localhost:8080/deleteShoppingCart/?id='+item.id, method="POST") Delete
+
+h2 Users
+table
+    thead
+        tr
+            th memberID
+            th user_name
+            th pword
+            th email
+            th first_name
+            th last_name
+            
+    each item in users
+        tr
+            td= item.memberID 
+            td= item.user_name 
+            td= item.pword 
+            td= item.email 
+            td= item.first_name 
+            td= item.last_name
+            td 
+                a(href='http://localhost:8080/deleteUser/?memberID='+item.memberID, method="POST") Delete
+
+h3 Products
+table
+    thead
+        tr
+            th ID
+            th Name
+            th Description
+            th Price
+            th Category
+            
+    each item in products
+        tr
+            td= item.product_id
+            td= item.product_name 
+            td= item.product_description 
+            td= "$"+item.product_price
+            td= item.category

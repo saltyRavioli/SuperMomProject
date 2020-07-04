@@ -1,0 +1,217 @@
+doctype html
+title W3.CSS Template
+meta(charset='UTF-8')
+meta(name='viewport', content='width=device-width, initial-scale=1')
+link(rel='stylesheet', href='https://www.w3schools.com/w3css/4/w3.css')
+link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto')
+link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Montserrat')
+link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+style.
+  .w3-sidebar a {font-family: "Roboto", sans-serif}
+  body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Raleway", sans-serif;
+  color: #64485c}
+// Sidebar/menu
+nav#mySidebar.w3-sidebar.w3-bar-block.w3-collapse.w3-top(style='width:250px;background-color:#c39e9e')
+  .w3-container.w3-display-container.w3-padding-16
+    i.fa.fa-remove.w3-hide-large.w3-button.w3-display-topright(onclick='w3_close()')
+    a.w3-bar-item.w3-button.w3-wide(href='#home', style='color:#64485c;') SuperMomsClub
+  .w3-padding-64.w3-large.w3-text-grey(style='font-weight:bold')
+    a.w3-bar-item.w3-button(href='#', style='color:#64485c;') Back to main page
+    a.w3-bar-item.w3-button(href='#', style='color:#64485c;') Login
+    a.w3-bar-item.w3-button(href='#', style='color:#64485c;') Our VIP Promo
+    a#myBtn.w3-button.w3-block.w3-left-align(style='color:#64485c;', onclick='myAccFunc()', href='javascript:void(0)')
+      | Category 
+      i.fa.fa-caret-down
+        #demoAcc.w3-bar-block.w3-hide.w3-padding-large.w3-medium
+        each category in categories
+            a.w3-bar-item.w3-button(href= "#"+category.topic_name, style='color:#64485c;background-color:#c39e9e')= category.topic_name
+    a.w3-bar-item.w3-button(href='#', style='color:#64485c;') Sale
+  a.w3-bar-item.w3-button.w3-padding(href='#footer', style='color:#64485c;') Shipping Info
+  a.w3-bar-item.w3-button.w3-padding(href='#footer', style='color:#64485c;') Payment Info
+  // a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('newsletter').style.display='block'">Newsletter
+  a.w3-bar-item.w3-button.w3-padding(href='#footer', style='color:#64485c;') Register Now
+// Top menu on small screens
+header.w3-bar.w3-top.w3-hide-large.w3-black.w3-xlarge
+  .w3-bar-item.w3-padding-24.w3-wide LOGO
+  a.w3-bar-item.w3-button.w3-padding-24.w3-right(href='javascript:void(0)', onclick='w3_open()')
+    i.fa.fa-bars
+// Overlay effect when opening sidebar on small screens
+#myOverlay.w3-overlay.w3-hide-large(onclick='w3_close()', style='cursor:pointer', title='close side menu')
+// !PAGE CONTENT!
+.w3-main(style='margin-left:250px')
+  // Push down content on small screens
+  .w3-hide-large(style='margin-top:83px')
+  // Top header
+  header.w3-container.w3-xlarge
+    p.w3-left Supper Mom Goodies
+    p.w3-right
+      i.fa.fa-shopping-cart.w3-margin-right
+      i.fa.fa-search
+  // Image header
+  .w3-display-container.w3-container
+    img(src='files/images/crib.jpg', alt='Jeans', style='height:400px;width:100%;filter:brightness(150%)')
+    .w3-display-topleft.w3-text-white(style='padding:24px 48px;')
+      h1.w3-jumbo.w3-hide-small(style='color:#6d1919') New arrivals
+      h1.w3-hide-large.w3-white.w3-hide-medium(style='color:#6d1919') New arrivals
+      h1.w3-hide-small(style='color:#6d1919') COLLECTION 2020
+      br
+      p
+        a.w3-button.w3-light-gray.w3-padding-large.w3-large(href='#jeans') SHOP NOW
+
+    each category in categories
+        .w3-container.w3-text-grey(id= category.topic_name)
+            h1= category.topic_name
+        .w3-row.w3-grayscale
+            - for (var n = 0; n < items.length; n++) {
+                - var inRange = true;
+                - while (category.topic_name != items[n].category) {
+                    - n++;
+                    - if (n>=items.length) {
+                        - inRange = false;
+                        - break;
+                    - }
+                - }
+                - if (!inRange)
+                    - break;
+                .w3-col.l3.s6
+                    .w3-container
+                        .w3-display-container
+                            img(src='files/images/product1.jpg', style='width:100%')
+                            if (items[n].product_status!=null)
+                                span.w3-tag.w3-display-topleft= items[n].product_status
+                            .w3-display-middle.w3-display-hover
+                                form(action="addToOrder")
+                                  button.w3-button.w3-black(type='submit', method="POST", name="productID", id="productID", value= items[n].product_id)
+                                    | Buy now 
+                                    i.fa.fa-shopping-cart
+                            p= items[n].product_name
+                                br
+                                b= "$"+items[n].product_price
+                    - n++;
+                    - inRange = true;
+                    - while (category.topic_name != items[n].category) {
+                        - n++;
+                        - if (n>=items.length) {
+                            - inRange = false;
+                            - break;
+                        - }
+                    - }
+                    - if (!inRange)
+                        - break;
+                    .w3-container
+                        .w3-display-container
+                            img(src='files//product1.jpg', style='width:100%')
+                            if (items[n].product_status!=null)
+                                span.w3-tag.w3-display-topleft= items[n].product_status
+                            .w3-display-middle.w3-display-hover
+                                form(action="addToOrder")
+                                  button.w3-button.w3-black(type='submit', method="POST", name="productID", id="productID", value= items[n].product_id)
+                                    | Buy now 
+                                    i.fa.fa-shopping-cart
+                            p= items[n].product_name
+                                br
+                                b= "$"+items[n].product_price
+            - }
+
+  // Subscribe section
+  .w3-container.w3-padding-32(style='background-color:#e3afbc')
+    h1 Register
+    p To get special offers and VIP treatment:
+    // p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail" style="width:100%"></p
+    button.w3-button.w3-red.w3-margin-bottom(type='button') Register
+  // Footer
+  footer#footer.w3-padding-64.w3-light-grey.w3-small.w3-center
+    .w3-row-padding
+      .w3-col.s4
+        h4 Contact
+        p Questions? Go ahead.
+        form(action='/action_page.php', target='_blank')
+          p
+            input.w3-input.w3-border(type='text', placeholder='Name', name='Name', required='')
+          p
+            input.w3-input.w3-border(type='text', placeholder='Email', name='Email', required='')
+          p
+            input.w3-input.w3-border(type='text', placeholder='Subject', name='Subject', required='')
+          p
+            input.w3-input.w3-border(type='text', placeholder='Message', name='Message', required='')
+          button.w3-button.w3-block.w3-black(type='submit') Send
+      .w3-col.s4
+        h4 About
+        p
+          a(href='#') About us
+        p
+          a(href='#') We&apos;re hiring
+        p
+          a(href='#') Support
+        p
+          a(href='#') Find store
+        p
+          a(href='#') Shipment
+        p
+          a(href='#') Payment
+        p
+          a(href='#') Gift card
+        p
+          a(href='#') Return
+        p
+          a(href='#') Help
+      .w3-col.s4.w3-justify
+        h4 Store
+        p
+          i.fa.fa-fw.fa-map-marker
+          |  Company Name
+        p
+          i.fa.fa-fw.fa-phone
+          |  0044123123
+        p
+          i.fa.fa-fw.fa-envelope
+          |  ex@mail.com
+        h4 We accept
+        p
+          i.fa.fa-fw.fa-cc-amex
+          |  Amex
+        p
+          i.fa.fa-fw.fa-credit-card
+          |  Credit Card
+        br
+        i.fa.fa-facebook-official.w3-hover-opacity.w3-large
+        i.fa.fa-instagram.w3-hover-opacity.w3-large
+        i.fa.fa-snapchat.w3-hover-opacity.w3-large
+        i.fa.fa-pinterest-p.w3-hover-opacity.w3-large
+        i.fa.fa-twitter.w3-hover-opacity.w3-large
+        i.fa.fa-linkedin.w3-hover-opacity.w3-large
+  .w3-black.w3-center.w3-padding-24
+    | Powered by 
+    a.w3-hover-opacity(href='https://www.w3schools.com/w3css/default.asp', title='W3.CSS', target='_blank') w3.css
+  // End page content
+// Newsletter Modal
+#newsletter.w3-modal
+  .w3-modal-content.w3-animate-zoom(style='padding:32px')
+    .w3-container.w3-white.w3-center
+      i.fa.fa-remove.w3-right.w3-button.w3-transparent.w3-xxlarge(onclick="document.getElementById('newsletter').style.display='none'")
+      h2.w3-wide NEWSLETTER
+      p Join our mailing list to receive updates on new arrivals and special offers.
+      p
+        input.w3-input.w3-border(type='text', placeholder='Enter e-mail')
+      button.w3-button.w3-padding-large.w3-red.w3-margin-bottom(type='button', onclick="document.getElementById('newsletter').style.display='none'") Subscribe
+script.
+  // Accordion
+  function myAccFunc() {
+  var x = document.getElementById("demoAcc");
+  if (x.className.indexOf("w3-show") == -1) {
+  x.className += " w3-show";
+  } else {
+  x.className = x.className.replace(" w3-show", "");
+  }
+  }
+  // Click on the "Jeans" link on page load to open the accordion for demo purposes
+  document.getElementById("myBtn").click();
+  // Open and close sidebar
+  function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+  }
+  function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+  }

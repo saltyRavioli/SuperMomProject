@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // need this to do stuff lik
 app.use(session({
   cookieName: 'SuperMomSession', // cookie name dictates the key name added to the request object
   secret: 'random_string_goes_here', //encrypt later (should be a large unguessable string)
-  duration: 1000*60*60*3, // how long the session will stay valid in ms
+  duration: 1000*60*60*24*3, // how long the session will stay valid in ms
   cookie: { //https://www.npmjs.com/package/client-sessions
     //path: '/api', // cookie will only be sent to requests under '/api'
     maxAge: 1000*60*60*24*3, // duration of the cookie in milliseconds, defaults to 60000
@@ -35,6 +35,8 @@ var con = mysql.createConnection({
   password: "test",
   database: "SuperMom"
 });
+
+
 con.connect(function(err) {
   if (err) {
     console.log("Error");
@@ -42,7 +44,36 @@ con.connect(function(err) {
   }
   else console.log("Connected!");
 }); 
+app.use('/files', express.static(__dirname));
 
+app.get("/test", function (req, res) {
+  res.render('test')
+});
+app.get("/testHTML", function (req, res) {
+  res.sendFile(__dirname+"/test.html");
+});
+
+app.get("/shop", function (request, response) { //apparently app.get() only activates if the user types in the password?
+  let sql = `SELECT * FROM products ORDER BY category`;
+  let query = con.query(sql, function(err, rows, fields) {
+      if(err) {
+          console.log("An error occurred.");
+          throw err;
+      }
+      let sql2 = `SELECT * FROM category ORDER BY topic_name`;
+      let query2 = con.query(sql2, function(err, rows2, fields) {
+        if(err) {
+            console.log("An error occurred.");
+            throw err;
+        }
+        response.render('shop', { // 'posts' <-- whatever's in here should match the filename in the views folder
+            title: 'Product Details',
+            items: rows,
+            categories: rows2
+        })
+    });
+  });
+});
 //define the route for "/"
 app.get("/login", function (request, response) { //apparently app.get() only activates if the user types in the password?
   if (request.SuperMomSession.remember == true) {
@@ -76,51 +107,55 @@ app.post("/login", function (request, response) {
 });
 
 app.post("/index", function (request, response) {
-  if (request.SuperMomSession.remember == true) {
-    response.render('index', {
-          username: request.SuperMomSession.uname,
-          password: request.SuperMomSession.pword
-    })
-  }
-  //show this file when the "/" is requested
-  else {
-    response.render('index', {
-      username: '',
-      password: ''
-    })
-  }
+  renderingIndexPage(false, false, request, response);
 });
 app.get("/index", function (request, response) {
-  if (request.SuperMomSession.remember == true) {
-    response.render('index', {
-          username: request.SuperMomSession.uname,
-          password: request.SuperMomSession.pword
+  renderingIndexPage(false, false, request, response);
+});
+
+function renderingIndexPage(loginF, signUpF, req, res) {
+  if (req.SuperMomSession.remember == true) {
+    res.render('index', {
+          username: req.SuperMomSession.user,
+          password: req.SuperMomSession.pword,
+          loginFailed: Boolean(loginF),
+          signUpFailed: Boolean(signUpF)
     })
   }
   //show this file when the "/" is requested
   else {
-    response.render('index', {
+    res.render('index', {
       username: '',
-      password: ''
+      password: '',
+      loginFailed: Boolean(loginF),
+      signupFailed: Boolean(signUpF)
     })
   }
-});
+}
 
-/*
-    memberID BIGINT
-    user_name VARCHAR(20)
-    pword VARCHAR(20)
-    email VARCHAR(100)
-    first_name VARCHAR(30)
-    last_name VARCHAR(30)
-    adress VARCHAR(50) (address lol)
-    num INT
-    level_id INT
-*/
 app.get("/signup", function (req, res) {
   res.sendFile(__dirname+"/signup.html");
 });
 app.get("/homepage", function (req, res) {
+  console.log(req.SuperMomSession);
+  let sql = `SELECT * FROM members WHERE user_name = '${req.SuperMomSession.user}'`;
+  let query = con.query(sql, function(err, result) {
+    if(err) {
+        console.log("An error occurred.");
+        throw err;
+    }
+    else if (result.length == 0) {
+      console.log("No entry found:" + result);
+      res.sendFile(__dirname+"/loginFailed.html");
+    }
+    else if (req.SuperMomSession.pword === result[0].pword) { //remember this syntax: result[0].pword
+      req.SuperMomSession.user = result[0].user_name;
+      req.SuperMomSession.pword = result[0].pword;
+      res.sendFile(__dirname+"/homepage.html");
+    }
+  }); 
+});
+app.post("/homepage", function (req, res) {
   console.log(req.SuperMomSession);
   let sql = `SELECT * FROM members WHERE user_name = '${req.SuperMomSession.user}'`;
   let query = con.query(sql, function(err, result) {
@@ -156,14 +191,21 @@ app.post("/signupCheck", function (req, res) {
             }
             else {
               console.log(result);
-              res.sendFile(__dirname+"/login.html");
+              req.SuperMomSession.user = req.body.uname;
+              req.SuperMomSession.pword = req.body.pword;
+              req.SuperMomSession.memberID = req.body.memberID;
+              req.SuperMomSession.remember = false;
+              renderingIndexPage(false, false, req, res);
             }
           });
       }
       else {
         console.log(result);
         console.log('name exists');
-        res.sendFile(__dirname+"/signup.html");
+        req.SuperMomSession.user = '';
+        req.SuperMomSession.pword = '';
+        req.SuperMomSession.memberID = '';
+        renderingIndexPage(false, true, req, res);
       }
     }); 
   }
@@ -178,14 +220,17 @@ app.post('/validLogin', (req, res) => {
             console.log("An error occurred.");
             throw err;
         }
-        if (result.length == 0) {
-            console.log("No entry found:" + result);
-            res.sendFile(__dirname+"/loginFailed.html");
+        if (result.length == 0 || result == undefined) {
+          req.SuperMomSession.user = '';
+          req.SuperMomSession.pword = '';
+          req.SuperMomSession.memberID = '';
+          renderingIndexPage(true, false, req, res);
         }
         else {
           if (req.body.pword === result[0].pword) { //remember this syntax: result[0].pword
             req.SuperMomSession.user = result[0].user_name;
             req.SuperMomSession.pword = result[0].pword;
+            console.log(result);
             req.SuperMomSession.memberID = result[0].memberID;
             if (req.body.remember=='on') {
               console.log(req.body.remember);
@@ -194,10 +239,14 @@ app.post('/validLogin', (req, res) => {
             else {
               req.SuperMomSession.remember = false;
             }
-            res.sendFile(__dirname+"/homepage.html");
+            console.log(req.SuperMomSession.pword);
+            renderingIndexPage(false, false, req, res);
           }
           else {
-            res.sendFile(__dirname+"/loginFailed.html");
+            req.SuperMomSession.user = '';
+            req.SuperMomSession.pword = '';
+            req.SuperMomSession.memberID = '';
+            renderingIndexPage(true, false, req, res);
           }
           console.log(result);
           console.log('get');
@@ -348,39 +397,83 @@ app.get('/user', (req, res) => {
           console.log("An error occurred.");
           throw err;
       }
-      // res.write('<h1>Hello, World!</h1>');
-      // res.end();
-      res.render('posts', { // 'posts' <-- whatever's in here should match the filename in the views folder
-          title: 'User  Details',
-          items: rows
+      res.render('profile', {
+          user: rows
       })
   });
 });
-/*
-create table orders(
-    order_id bigint primary key auto_increment,
-    product_id bigint not null,
-    member_id bigint not null,
-    created_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    ratings int,
-    feedback text(1000),
-    order_status varchar(30),
-    constraint fk_member3 foreign key (member_id) references members (member_id),
-    constraint fk_product foreign key (product_id) references products (product_id)
-);
 
-/*
-create table products(
-  product_id bigint primary key auto_increment,
-  product_name varchar(50) not null,
-  product_description text (1000),
-  product_price numeric,
-  category_id int,
-  stock_num int,
-  constraint fk_category foreign key(category_id) references category(category_id)
-);
-*/
-app.get('/orders', (req, res) => {
+app.get("/modifyUser", function (req, res) {
+  var adr = req.url;
+  var q = url.parse(adr, true);
+  var qdata = q.query;
+  var address = qdata.address;
+  var children = qdata.children;
+  var email = qdata.email;
+  var password = qdata.pword;
+  if (address != '' && address != null) {;
+    let sql = `UPDATE members SET adress = '${address}' WHERE memberID = ${req.SuperMomSession.memberID};`;
+    let query = con.query(sql, function(err, result) {
+      if(err) {
+          console.log("An error occurred.");
+          throw err;
+      }
+      else {
+      }
+    });
+  }
+  if (children != null) {;
+    let sql = `UPDATE members SET num = '${children}' WHERE memberID = ${req.SuperMomSession.memberID};`;
+    let query = con.query(sql, function(err, result) {
+      if(err) {
+          console.log("An error occurred.");
+          throw err;
+      }
+      else {
+      }
+    });
+  }
+  if (email != '' && email != null) {;
+    let sql = `UPDATE members SET email = '${email}' WHERE memberID = ${req.SuperMomSession.memberID};`;
+    let query = con.query(sql, function(err, result) {
+      if(err) {
+          console.log("An error occurred.");
+          throw err;
+      }
+      else {
+      }
+    });
+  }
+  if (password != '' && password != null) {;
+    let sql = `UPDATE members SET pword = '${password}' WHERE memberID = ${req.SuperMomSession.memberID};`;
+    let query = con.query(sql, function(err, result) {
+      if(err) {
+          console.log("An error occurred.");
+          throw err;
+      }
+      else {
+      }
+    });
+  }
+  let sql = `SELECT * FROM members WHERE user_name = '${req.SuperMomSession.user}'`;
+
+  let query = con.query(sql, function(err, rows, fields) {
+      if(err) {
+          console.log("An error occurred.");
+          throw err;
+      }
+      res.render('profile', {
+          user: rows
+      })
+  });
+});
+
+app.get('/shoppingCart', (req, res) => {
+  console.log("here");
+  renderingShoppingCart(req, res);
+});
+
+function renderingShoppingCart(req, res) {
   let sql = `SELECT * FROM members WHERE user_name = '${req.SuperMomSession.user}'`; 
   let query = con.query(sql, function(err, result) {
     if(err) {
@@ -392,14 +485,13 @@ app.get('/orders', (req, res) => {
         res.sendFile(__dirname+"/Error.html");
     }
     else {
-      console.log("test: "+result);
+      console.log("test: "+result[0]);
       var member_ID = -1; 
       member_ID = result[0].memberID;
-      let sql2 = ` SELECT products.product_id, product_name, product_description, product_price FROM products 
-      INNER JOIN orders
-      ON (products.product_id = orders.product_id)
-      WHERE member_id = '${member_ID}';
-      `; //yay inner join
+      let sql2 = `SELECT * FROM products 
+      INNER JOIN shopping_cart
+      ON (products.product_id = shopping_cart.product_id)
+      WHERE member_id = '${member_ID}';`; //yay inner join
       
 
       let query2 = con.query(sql2, function(err, rows, fields) {
@@ -412,15 +504,26 @@ app.get('/orders', (req, res) => {
             totalPrice+=item.product_price;
           });
           totalPrice = totalPrice.toFixed(2); //rounding
-          res.render('orders', {
-              title: 'Product Details',
-              items: rows,
-              price: totalPrice 
-          })
+          let sql3 = `SELECT * FROM category`;
+          let query3 = con.query(sql3, function(err, rows3, fields) {
+            if(err) {
+                console.log("An error occurred.");
+                throw err;
+            }
+            res.render('shoppingCart', { // 'posts' <-- whatever's in here should match the filename in the views folder
+                title: 'Product Details',
+                items: rows,
+                categories: rows3,
+                price: totalPrice,
+                tax: (totalPrice*0.13).toFixed(2),
+                total: (totalPrice*1.13).toFixed(2)
+            })
+          });
       });
     }
   });
-});
+}
+
 app.get('/products', (req, res) => {
   let sql = `SELECT * FROM products`;
 
@@ -438,7 +541,7 @@ app.get('/products', (req, res) => {
           console.log(rows2);
           // res.write('<h1>Hello, World!</h1>');
           // res.end();
-          res.render('orders', { // 'posts' <-- whatever's in here should match the filename in the views folder
+          res.render('shop', { // 'posts' <-- whatever's in here should match the filename in the views folder
               title: 'Product Details',
               items: rows,
               categories: rows2
@@ -447,27 +550,69 @@ app.get('/products', (req, res) => {
   });
 });
 
-app.post('/addToOrder', (req, res) => {
-  let sql2 = `INSERT INTO orders(member_id, product_id) values (${req.SuperMomSession.memberID}, ${req.body.productID})`;
-  let query2 = con.query(sql2, function(err, rows) {
+app.get('/addToOrder*', (req, res) => {
+  var adr = req.url;
+  var q = url.parse(adr, true);
+  var qdata = q.query;
+  var productID = qdata.productID;
+  let sql = `INSERT INTO shopping_cart (member_id, product_id) values (${req.SuperMomSession.memberID}, ${productID})`;
+  let query = con.query(sql, function(err, rows) {
     if(err) {
         console.log("An error occurred.");
         throw err;
     }
   });
 
-  let sql3 = `SELECT * FROM products`;
-  let query3 = con.query(sql3, function(err, rows, fields) {
+  let sql2 = `SELECT products.product_id, product_name, product_description, product_price FROM products 
+  INNER JOIN shopping_cart
+  ON (products.product_id = shopping_cart.product_id)
+  WHERE member_id = '${req.SuperMomSession.memberID}';`;
+  let query2 = con.query(sql2, function(err, rows, fields) {
       if(err) {
           console.log("An error occurred.");
           throw err;
       }
-      // res.write('<h1>Hello, World!</h1>');
-      // res.end();
-      res.render('orders', { // 'posts' <-- whatever's in here should match the filename in the views folder
-          title: 'Product Details',
-          items: rows
-      })
+      let sql3 = `SELECT * FROM category`;
+      let query3 = con.query(sql3, function(err, rows3, fields) {
+        if(err) {
+            console.log("An error occurred.");
+            throw err;
+        }
+        renderingShoppingCart(req,res);
+      });
+  });
+});
+
+app.post('/addToOrder*', (req, res) => {
+  var adr = req.url;
+  var q = url.parse(adr, true);
+  var qdata = q.query;
+  var productID = qdata.productID; 
+  let sql = `INSERT INTO shopping_cart (member_id, product_id) values (${req.SuperMomSession.memberID}, ${productID})`;
+  let query = con.query(sql, function(err, rows) {
+    if(err) {
+        console.log("An error occurred.");
+        throw err;
+    }
+  });
+
+  let sql2 = `SELECT products.product_id, product_name, product_description, product_price FROM products 
+  INNER JOIN shopping_cart
+  ON (products.product_id = shopping_cart.product_id)
+  WHERE member_id = '${req.SuperMomSession.memberID}';`;
+  let query2 = con.query(sql2, function(err, rows, fields) {
+      if(err) {
+          console.log("An error occurred.");
+          throw err;
+      }
+      let sql3 = `SELECT * FROM category`;
+      let query3 = con.query(sql3, function(err, rows3, fields) {
+        if(err) {
+            console.log("An error occurred.");
+            throw err;
+        }
+        renderingShoppingCart(req,res);
+      });
   });
 });
 
@@ -528,6 +673,7 @@ app.get("/deleteTopic*", function (req, res) {
   var q = url.parse(adr, true);
   var qdata = q.query;
   var id = qdata.topicID; 
+  console.log(adr);
   sql = `DELETE FROM topic WHERE topic_id = ${id};`;
   let query = con.query(sql, function(err, result) {
     if(err) {
@@ -552,6 +698,39 @@ app.get("/deleteCategory*", function (req, res) {
   });
   renderingAdminPage(req, res);
 });
+app.get("/deleteShoppingCart*", function (req, res) {
+  var adr = req.url;
+  var q = url.parse(adr, true);
+  var qdata = q.query;
+  var id = qdata.id;
+  var originURL = qdata.url; 
+  sql = `DELETE FROM shopping_cart WHERE id = ${id};`;
+  let query = con.query(sql, function(err, result) {
+    if(err) {
+        console.log("An error occurred.");
+        throw err;
+    }
+  });
+  if (originURL=="shoppingCart") {
+    renderingShoppingCart(req, res);
+  }
+  else
+    renderingAdminPage(req, res);
+});
+app.get("/deleteUser*", function (req, res) {
+  var adr = req.url;
+  var q = url.parse(adr, true);
+  var qdata = q.query;
+  var id = qdata.memberID; 
+  sql = `DELETE FROM members WHERE memberID = ${id};`;
+  let query = con.query(sql, function(err, result) {
+    if(err) {
+        console.log("An error occurred.");
+        throw err;
+    }
+  });
+  renderingAdminPage(req, res);
+});
 
 function renderingAdminPage(request, response) {
   sql = `SELECT * FROM topic`;
@@ -568,10 +747,45 @@ function renderingAdminPage(request, response) {
             throw err;
         }
         else {
-          response.render('adminPage', {
-            topics: result,
-            categories: result2
-          })
+          sql3 = `SELECT * FROM products 
+                  INNER JOIN shopping_cart
+                  ON (products.product_id = shopping_cart.product_id)
+                  INNER JOIN members
+                  ON (shopping_cart.member_id = members.memberID)
+                  ORDER BY shopping_cart.id`;
+          let query3 = con.query(sql3, function(err, result3) {
+            if(err) {
+                console.log("An error occurred.");
+                throw err;
+            }
+            else {
+              sql4 = `SELECT * FROM members`;
+              let query4 = con.query(sql4, function(err, result4) {
+                if(err) {
+                    console.log("An error occurred.");
+                    throw err;
+                }
+                else {
+                  let sql5 = `SELECT * FROM products ORDER BY category`;
+                  let query5 = con.query(sql5, function(err, result5) {
+                    if(err) {
+                        console.log("An error occurred.");
+                        throw err;
+                    }
+                    else {
+                      response.render('adminPage', {
+                        topics: result,
+                        categories: result2,
+                        shoppingCart: result3,
+                        users: result4,
+                        products: result5
+                      })
+                    }
+                  });
+                }
+              });
+            }
+          });
         }
       });
     }
@@ -585,12 +799,14 @@ app.post("/adminPage", function (request, response) {
   renderingAdminPage(request, response);
 });
 
-app.get('/logout', function (req, res) {
-  delete req.SuperMomSession.user;
-  res.redirect('/login');
+app.post('/logout', function (req, res) {
+  req.SuperMomSession.user = '';
+  req.SuperMomSession.pword = '';
+  req.SuperMomSession.memberID = '';
+  renderingIndexPage(false, false, req, res);
 });   
 
 //start the server
 app.listen(8080);
 
-console.log("Something awesome to happen at http://localhost:8080");
+console.log("Running at http://localhost:8080");

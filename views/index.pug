@@ -1,0 +1,804 @@
+doctype html
+title SuperMomsClub
+meta(charset='UTF-8')
+meta(name='viewport', content='width=device-width, initial-scale=1')
+link(rel='stylesheet', href='https://www.w3schools.com/w3css/4/w3.css')
+link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Raleway')
+link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+style.
+  body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif;
+  color: #64485c}
+  body, html {
+  height: 100%;
+  line-height: 1.8;
+  }
+  .event_img1 {
+  background-position: center;
+  /*background-image: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url('http://localhost:3001/images/title.jpg');*/
+  background-repeat: no-repeat;
+  background-color: #c39e9e;
+  min-height: 100%;
+  }
+  /* Full height image header */
+  .bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  background-image: url('files/images/title.jpg');
+  background-repeat: no-repeat;
+  /*background-color: #C38D9E;*/
+  min-height: 100%;
+  }
+  .bgimg-4 {
+  background-position: center;
+  background-size: cover;
+  background-image: url('files/images/profile_background.jpg');
+  background-repeat: no-repeat;
+  /*background-color: #C38D9E;*/
+  min-height: 100%;
+  }
+  .bgimg-2 {
+  background-position: center;
+  background-size: cover;
+  background-image: url('files/images/background_s.jpg');
+  background-repeat: no-repeat;
+  /*background-color: #C38D9E;*/
+  min-height: 100%;
+  }
+  .bgimg-3 {
+  background-position: center;
+  background-size: cover;
+  background-image: url('files/images/bg_2.jpg');
+  background-repeat: no-repeat;
+  /*background-color: #C38D9E;*/
+  min-height: 100%;
+  }
+  .w3-bar .w3-button {
+  padding: 16px;
+  }
+  a:link {
+  color: #64485c;
+  }
+  /* visited link */
+  a:visited {
+  color: #ac3b61;
+  }
+  /* mouse over link */
+  a:hover {
+  color: #6d1919;
+  }
+  /* selected link */
+  a:active {
+  color: #986c62;
+  }
+  /* Full-width input fields */
+  input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+  }
+  /* Add a background color when the inputs get focus */
+  input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+  }
+  /* Set a style for all buttons */
+  button {
+  background-color: #64485c;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  }
+  button:hover {
+  opacity:1;
+  }
+  /* Extra styles for the cancel button */
+  .cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+  }
+  /* Float cancel and signup buttons and add an equal width */
+  .cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+  }
+  /* Add padding to container elements */
+  .container {
+  padding: 16px;
+  }
+  /* The Modal (background) */
+  .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: #474e5d;
+  padding-top: 50px;
+  }
+  /* Modal Content/Box */
+  .modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  }
+  /* The Close Button (x) */
+  .close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+  }
+  .close:hover,
+  .close:focus {
+  color: #f44336;
+  cursor: pointer;
+  }
+  /* Clear floats */
+  .clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+  }
+  /* Change styles for cancel button and signup button on extra small screens */
+  @media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+  width: 100%;
+  }
+  }
+  /*the container must be positioned relative:*/
+  .custom-select {
+  position: relative;
+  font-family: Arial;
+  }
+  .custom-select select {
+  display: none; /*hide original SELECT element:*/
+  }
+  .select-selected {
+  background-color: #64485c;
+  }
+  /*style the arrow inside the select element:*/
+  .select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+  }
+  /*point the arrow upwards when the select box is open (active):*/
+  .select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+  }
+  /*style the items (options), including the selected item:*/
+  .select-items div,.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+  }
+  /*style items (options):*/
+  .select-items {
+  position: absolute;
+  background-color: #c39e9e;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  }
+  /*hide the items when the select box is closed:*/
+  .select-hide {
+  display: none;
+  }
+  .select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+  }
+  hr {
+  background-color:transparent;
+  margin:0 0 45px 0;
+  max-width:600px;
+  border-width:0;
+  }
+  hr.s9 {
+  height:6px;
+  border-top:2px #64485c;
+  border-bottom:2px #64485c;
+  }
+  .bg_price {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("files/images/profile_background.jpg");
+  opacity:0.3;
+  background-size: cover;
+  }
+  .title{
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size:120px;
+  letter-spacing:0.1em;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-stroke-color: #f6f0f1;
+  text-shadow:
+  4px 4px deeppink,
+  10px 10px #64485c;
+  }
+// Navbar (sit on top)
+.w3-top
+  #myNavbar.w3-bar.w3-white.w3-card
+    a.w3-bar-item.w3-button.w3-wide(href='#home', style='color:#64485c;') SuperMomsClub
+    // Right-sided navbar links
+    .w3-right.w3-hide-small
+      a.w3-bar-item.w3-button(href='#about', style='color:#64485c;') ABOUT
+      a.w3-bar-item.w3-button(href='#event', style='color:#64485c;')
+        i.fa.fa-th(style='color:#64485c;')
+        |  Event
+      a.w3-bar-item.w3-button(href='#shop', style='color:#64485c;')
+        i.fa.fa-shopping-bag(style='color:#64485c;')
+        |  Shop
+      a.w3-bar-item.w3-button(href='#shopcart', style='color:#64485c;')
+        i.fa.fa-shopping-cart(style='color:#64485c;', aria-hidden='true')
+        |  ShoppingCart
+      a.w3-bar-item.w3-button(href='#contact', style='color:#64485c;')
+        i.fa.fa-envelope(style='color:#64485c;')
+        |  Discussion
+      if (username==null || username=="")
+        a.w3-bar-item.w3-button(style='color:#64485c;', onclick="document.getElementById('id01').style.display='block'", type="javascript")
+            i.fa.fa-user(style='color:#64485c;')
+            |  SignUp
+        a.w3-bar-item.w3-button(style='color:#64485c;', onclick="document.getElementById('id02').style.display='block'", type="javascript")
+            i.fa.fa-user(style='color:#64485c;')
+            |  LogIn
+      else
+        a.w3-bar-item.w3-button(href="user", style='color:#64485c;')
+            i.fa.fa-user(style='color:#64485c;')
+              = username
+    // Hide right-floated links on small screens and replace them with a menu icon
+    a.w3-bar-item.w3-button.w3-right.w3-hide-large.w3-hide-medium(href='javascript:void(0)', onclick='w3_open()')
+      i.fa.fa-bars
+// Sidebar on small screens when clicking the menu icon
+nav#mySidebar.w3-sidebar.w3-bar-block.w3-black.w3-card.w3-animate-left.w3-hide-medium.w3-hide-large(style='display:none')
+  a.w3-bar-item.w3-button.w3-large.w3-padding-16(href='javascript:void(0)', onclick='w3_close()') Close &times;
+  a.w3-bar-item.w3-button(href='#about', onclick='w3_close()') ABOUT
+  a.w3-bar-item.w3-button(href='#team', onclick='w3_close()') TEAM
+  a.w3-bar-item.w3-button(href='#event', onclick='w3_close()') EVENT
+  a.w3-bar-item.w3-button(href='#pricing', onclick='w3_close()') PRICING
+  a.w3-bar-item.w3-button(href='#contact', onclick='w3_close()') CONTACT
+// Header with full-height image
+header#home.bgimg-1.w3-display-container.w3-grayscale-min
+  .w3-display-left(style='padding:48px;color:deeppink')
+    span.title SuperMomsClub
+    br
+    span.w3-xxlarge.w3-hide-large.w3-hide-medium.w3-black Embrace Happiness and Love
+    br
+    span.w3-large Share love and happiness.
+    p
+      a.w3-button.w3-white.w3-padding-large.w3-large.w3-margin-top.w3-opacity.w3hover-opacity-off(href='#about') Learn more and start today
+  .w3-display-bottomright.w3-large(style='padding:24px 48px; color:#64485c')
+    i.fa.fa-facebook-official.w3-hover-opacity
+    i.fa.fa-instagram.w3-hover-opacity
+    i.fa.fa-snapchat.w3-hover-opacity
+    i.fa.fa-pinterest-p.w3-hover-opacity
+    i.fa.fa-twitter.w3-hover-opacity
+    i.fa.fa-linkedin.w3-hover-opacity
+.w3-container.w3-row.w3-center.w3-padding-16(style='background-color: #64485c; color:whitesmoke')
+// About Section
+#about.w3-container(style='padding:128px 16px')
+  h3.w3-center ABOUT SUPER MOMS CLUB
+  p.w3-center.w3-large Key features of our company
+  .w3-row-padding.w3-center(style='margin-top:64px')
+    .w3-quarter
+      i.fa.fa-desktop.w3-margin-bottom.w3-jumbo.w3-center
+      p.w3-large Responsive
+      p
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+    .w3-quarter
+      i.fa.fa-heart.w3-margin-bottom.w3-jumbo
+      p.w3-large Passion
+      p
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+    .w3-quarter
+      i.fa.fa-diamond.w3-margin-bottom.w3-jumbo
+      p.w3-large Design
+      p
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+    .w3-quarter
+      i.fa.fa-cog.w3-margin-bottom.w3-jumbo
+      p.w3-large Support
+      p
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+.w3-container.w3-row.w3-center.w3-padding-16(style='background-color: #64485c; color:whitesmoke')
+// Promo Section - "We know what moms need"
+.w3-container.w3-light-grey(style='padding:128px 16px')
+  .w3-row-padding
+    .w3-col.m6
+      h3 We know Moms.
+      p
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        br
+        | tempor incididunt ut labore et dolore.
+        br
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        br
+        | tempor incididunt ut labore et dolore.
+      p
+        a.w3-button.w3-pale-red(href='#event')
+          i.fa.fa-th &nbsp;
+          |  View Our Events and Workshops
+    .w3-col.m6
+      img.w3-image.w3-round-large(src='files/images/meeting_intro.jpg', alt='ShowingMom', width='700', height='394')
+.w3-container.w3-row.w3-center.w3-padding-16(style='background-color: #64485c; color:whitesmoke')
+// product_listed Section
+#shop.w3-container(style='padding:0px 0px')
+  .w3-container.bgimg-2
+    br
+    br
+    h3.w3-center OUR FAV PRODUCTS
+    p.w3-center.w3-large There is always one prepared for desperate young moms.
+    br
+    br
+    br
+  .w3-row-padding.w3-grayscale(style='margin-top:16px')
+    .w3-col.l3.m6.w3-margin-bottom
+      .w3-card
+        img(src='files/images/product1.jpg', alt='Product1', style='width:100%')
+        .w3-container
+          h3 Product1
+          p.w3-opacity $10.99
+          p
+            | Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.
+          p
+            button.w3-button.w3-pale-red.w3-block
+              i.fa.fa-shopping-cart(aria-hidden='true')
+              |  buy
+    .w3-col.l3.m6.w3-margin-bottom
+      .w3-card
+        img(src='files/images/product1.jpg', alt='Product1', style='width:100%')
+        .w3-container
+          h3 Product1
+          p.w3-opacity $10.99
+          p
+            | Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.
+          p
+            button.w3-button.w3-pale-red.w3-block
+              i.fa.fa-shopping-cart(aria-hidden='true')
+              |  buy
+    .w3-col.l3.m6.w3-margin-bottom
+      .w3-card
+        img(src='files/images/product1.jpg', alt='Product1', style='width:100%')
+        .w3-container
+          h3 Product1
+          p.w3-opacity $10.99
+          p
+            | Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.
+          p
+            button.w3-button.w3-pale-red.w3-block
+              i.fa.fa-shopping-cart(aria-hidden='true')
+              |  buy
+    .w3-col.l3.m6.w3-margin-bottom
+      .w3-card
+        img(src='files/images/product1.jpg', alt='Product1', style='width:100%')
+        .w3-container
+          h3 Product1
+          p.w3-opacity $10.99
+          p
+            | Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.
+          p
+            button.w3-button.w3-pale-red.w3-block
+              i.fa.fa-shopping-cart(aria-hidden='true')
+              |  buy
+// Promo Section "Statistics"
+.w3-container.w3-row.w3-center.w3-padding-64(style='background-color: #64485c; color:whitesmoke')
+  .w3-quarter
+    span.w3-xxlarge 104+
+    br
+    | members
+  .w3-quarter
+    span.w3-xxlarge 55+
+    br
+    | events
+  .w3-quarter
+    span.w3-xxlarge 89+
+    br
+    | workshops
+  .w3-quarter
+    span.w3-xxlarge 150+
+    br
+    | products
+// Event Section
+#event.w3-container(style='padding:0px 0px')
+  .w3-container.bgimg-3
+    br
+    br
+    h3.w3-center OUR EVENTS
+    p.w3-center.w3-large Recent fun activities
+    br
+    br
+    br
+  .w3-row-padding.w3-center(style="background-image: url('files/images/bg4.jpg');\
+  background-size:cover;")
+    .w3-row.event_img1.w3-card(style='margin-top:32px')
+      p.w3-xlarge EventA
+      p.w3-small 2020-01-01(Sun)
+      p
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+    .w3-row.w3-card(style='margin-top:32px')
+      p.w3-xlarge EventA
+      p.w3-small 2020-01-01(Sun)
+      p
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+    .w3-row.event_img1.w3-card(style='margin-top:32px')
+      p.w3-xlarge EventA
+      p.w3-small 2020-01-01(Sun)
+      p
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+    .w3-row.w3-card(style='margin-top:32px')
+      p.w3-xlarge EventA
+      p.w3-small 2020-01-01(Sun)
+      p
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+    .w3-row.event_img1.w3-card(style='margin-top:32px')
+      p.w3-xlarge EventA
+      p.w3-small 2020-01-01(Sun)
+      p
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+    .w3-row.w3-card(style='margin-top:32px; margin-bottom: 32px')
+      p.w3-xlarge EventA
+      p.w3-small 2020-01-01(Sun)
+      p
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+    p(style='text-align:right')
+      b
+        a(href='default.asp', target='_blank', style='text-align:right') View Previous Event
+// Modal for full size images on click
+#modal01.w3-modal.w3-black(onclick="this.style.display='none'")
+  span.w3-button.w3-xxlarge.w3-black.w3-padding-large.w3-display-topright(title='Close Modal Image') &times;
+  .w3-modal-content.w3-animate-zoom.w3-center.w3-transparent.w3-padding-64
+    img#img01.w3-image
+    p#caption.w3-opacity.w3-large
+// Skills Section
+.w3-container.w3-light-grey.w3-padding-64
+  .w3-row-padding
+    .w3-col.m6
+      h3 Our Skills.
+      p
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        br
+        |                 tempor incididunt ut labore et dolore.
+      p
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        br
+        |                 tempor incididunt ut labore et dolore.
+    .w3-col.m6
+      p.w3-wide
+        i.fa.fa-youtube-play.w3-margin-right
+        | Youtube Event
+      .w3-grey
+        .w3-container.w3-dark-grey.w3-center(style='width:90%') 90%
+      p.w3-wide
+        i.fa.fa-star.w3-margin-right
+        | Product
+      .w3-grey
+        .w3-container.w3-dark-grey.w3-center(style='width:85%') 85%
+      p.w3-wide
+        i.fa.fa-photo.w3-margin-right
+        | Forum
+      .w3-grey
+        .w3-container.w3-dark-grey.w3-center(style='width:75%') 75%
+// Pricing Section
+#pricing.w3-container.w3-center(style="padding:128px 16px;\
+background-image: url('files/images/bg3.jpg');\
+background-size:cover;")
+  h3 OUR MEMBER PLAN
+  p.w3-large Choose a plan that fits your needs.
+  .w3-row-padding(style='margin-top:64px')
+    .w3-third.w3-section
+      ul.w3-ul.w3-white.w3-hover-shadow
+        li.w3-xlarge.w3-padding-32(style='background-color: #c39e9e') Silver
+        li.w3-padding-16
+          b 10%
+          |  Discount
+        li.w3-padding-16
+          b 100
+          |  Posts
+        li.w3-padding-16
+          b 2
+          |  Events
+        li.w3-padding-16
+          b Endless
+          |  Support
+        li.w3-padding-16
+          h2.w3-wide $ 10
+          span.w3-opacity per month
+        li.w3-light-grey.w3-padding-24
+          button.w3-button.w3-padding-large(style='background-color: #c39e9e') Sign Up
+    .w3-third
+      ul.w3-ul.w3-white.w3-hover-shadow
+        li.w3-red.w3-xlarge.w3-padding-48 Gold
+        li.w3-padding-16
+          b 25%
+          |  Discount
+        li.w3-padding-16
+          b 200
+          |  Posts
+        li.w3-padding-16
+          b 5
+          |  Events
+        li.w3-padding-16
+          b Endless
+          |  Support
+        li.w3-padding-16
+          h2.w3-wide $ 25
+          span.w3-opacity per month
+        li.w3-light-grey.w3-padding-24
+          button.w3-button.w3-red.w3-padding-large Sign Up
+    .w3-third.w3-section
+      ul.w3-ul.w3-white.w3-hover-shadow
+        li.w3-xlarge.w3-padding-32(style='background-color: #c39e9e') Premium
+        li.w3-padding-16
+          b 30%
+          |  Discount
+        li.w3-padding-16
+          b 500
+          |  Post
+        li.w3-padding-16
+          b Endless
+          |  Events
+        li.w3-padding-16
+          b Endless
+          |  Support
+        li.w3-padding-16
+          h2.w3-wide $ 50
+          span.w3-opacity per month
+        li.w3-light-grey.w3-padding-24
+          button.w3-button.w3-padding-large(style='background-color: #c39e9e') Sign Up
+// Contact Section
+#contact.w3-container.w3-light-grey(style='padding:128px 16px')
+  h3.w3-center Have Any Questions?
+  p.w3-center.w3-large Become a member of our heart-warming and supporting club.
+  div(style='margin-top:48px')
+    p
+      i.fa.fa-map-marker.fa-fw.w3-xxlarge.w3-margin-right
+      |  Toronto, CA
+    p
+      i.fa.fa-phone.fa-fw.w3-xxlarge.w3-margin-right
+      |  Phone: +00 151515
+    p
+      i.fa.fa-envelope.fa-fw.w3-xxlarge.w3-margin-right  
+      |  Wechat: xxxxxx
+    br
+    form(action='/action_page.php', target='_blank')
+      p
+        input.w3-input.w3-border(type='text', placeholder='Name', required='', name='Name')
+      p
+        input.w3-input.w3-border(type='text', placeholder='Email', required='', name='Email')
+      p
+        input.w3-input.w3-border(type='text', placeholder='Subject', required='', name='Subject')
+      p
+        input.w3-input.w3-border(type='text', placeholder='Message', required='', name='Message')
+      p
+        button.w3-button.w3-black(type='submit')
+          i.fa.fa-paper-plane
+          |  SEND MESSAGE
+    // Image of location/map
+    img.w3-image.bgimg-4(style='width:100%;margin-top:48px')
+    img(src='files/images/profile_background.jpg', alt='HTML5 Icon', width='100%')
+// Footer
+footer.w3-center.w3-black.w3-padding-64
+  a.w3-button.w3-light-grey(href='#home')
+    i.fa.fa-arrow-up.w3-margin-right
+    | To the top
+  .w3-xlarge.w3-section
+    i.fa.fa-facebook-official.w3-hover-opacity
+    i.fa.fa-instagram.w3-hover-opacity
+    i.fa.fa-snapchat.w3-hover-opacity
+    i.fa.fa-pinterest-p.w3-hover-opacity
+    i.fa.fa-twitter.w3-hover-opacity
+    i.fa.fa-linkedin.w3-hover-opacity
+// signup
+#id01.modal
+  span.close(onclick="document.getElementById('id01').style.display='none'", title='Close Modal') &times;
+  form.modal-content(action='signupCheck', method="POST")
+    .container
+      h1 Sign Up
+      if (signupFailed)
+        p(style='color:rgb(255,0,0);') Error creating your account. The username may already be taken.
+      p Please fill in this form to create an account.
+      hr
+      label(for='uname')
+        b User Name
+      input#uname(type='text', placeholder='Enter user nickname', name='uname', required='')
+      label(for='email')
+        b Email
+      input#email(type='text', placeholder='Enter Email', name='email', required='')
+      label(for='birthday')
+        b Birthday
+      input#birthday(type='text', placeholder='DD/MM/YY', name='birthday', required='')
+      label(for='children')
+        b How many children do you have?
+      br
+      .custom-select(style='width:128px;')
+        select#children(name='children')
+          option(value='0') 0
+          option(value='1') 1
+          option(value='2') 2
+          option(value='3') 3 or more
+      br
+      label(for='pword')
+        b Password
+      input#pword(type='password', placeholder='Enter Password', name='pword', required='')
+      label(for='pwordRepeat')
+        b Repeat Password
+      input#pwordRepeat(type='password', placeholder='Repeat Password', name='pwordRepeat', required='')
+      script(language='javascript', type='text/javascript').
+        function check(input) {
+        if (input.value != document.getElementById('password').value) {
+        input.setCustomValidity('Password Must be Matching.');
+        } else {
+        // input is valid -- reset the error message
+        input.setCustomValidity('');
+        }
+        }
+      p
+        | By creating an account you agree to our 
+        a(href='#', style='color:dodgerblue') Terms &amp; Privacy
+        | .
+      .clearfix
+        button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
+        button.signupbtn(type='submit') Sign Up
+// login
+#id02.modal
+  form.modal-content.animate(action='validLogin', method='post')
+    .imgcontainer
+      span.close(onclick="document.getElementById('id02').style.display='none'", title='Close Modal') &times;
+      img.avatar(src='img_avatar2.png', alt='Avatar')
+    .container
+      if (loginFailed)
+        p(style='color:rgb(255,0,0);') The username of password may be incorrect.
+      label(for='uname')
+        b Username
+      input(type='text', placeholder='Enter Username', name='uname', value= username, required)
+      input(type='password', placeholder='Enter Password', name='pword', value= password, required)  
+      button(type='submit') Login
+      label
+        input(type='checkbox', checked='checked', name='remember')
+        |  Remember me
+    .container(style='background-color:#f1f1f1')
+      span.psw
+        a(href="enterEmail") Forgot password?
+script.
+  // Modal Image Gallery
+  function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+  }
+  // Toggle between showing and hiding the sidebar when clicking the menu icon
+  var mySidebar = document.getElementById("mySidebar");
+  function w3_open() {
+  if (mySidebar.style.display === 'block') {
+  mySidebar.style.display = 'none';
+  } else {
+  mySidebar.style.display = 'block';
+  }
+  }
+  // Close the sidebar with the close button
+  function w3_close() {
+  mySidebar.style.display = "none";
+  }
+  // Get the modal
+  var modal = document.getElementById('id01');
+  var modal2 = document.getElementById('id02');
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+  if (event.target == modal) {
+  modal.style.display = "none";
+  }
+  if (event.target == modal2) {
+  modal2.style.display = "none";
+  }
+  }
+  var x, i, j, l, ll, selElmnt, a, b, c;
+  /*look for any elements with the class "custom-select":*/
+  x = document.getElementsByClassName("custom-select");
+  l = x.length;
+  for (i = 0; i < l; i++) {
+  selElmnt = x[i].getElementsByTagName("select")[0];
+  ll = selElmnt.length;
+  /*for each element, create a new DIV that will act as the selected item:*/
+  a = document.createElement("DIV");
+  a.setAttribute("class", "select-selected");
+  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+  x[i].appendChild(a);
+  /*for each element, create a new DIV that will contain the option list:*/
+  b = document.createElement("DIV");
+  b.setAttribute("class", "select-items select-hide");
+  for (j = 1; j < ll; j++) {
+  /*for each option in the original select element,
+  create a new DIV that will act as an option item:*/
+  c = document.createElement("DIV");
+  c.innerHTML = selElmnt.options[j].innerHTML;
+  c.addEventListener("click", function(e) {
+  /*when an item is clicked, update the original select box,
+  and the selected item:*/
+  var y, i, k, s, h, sl, yl;
+  s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+  sl = s.length;
+  h = this.parentNode.previousSibling;
+  for (i = 0; i < sl; i++) {
+  if (s.options[i].innerHTML == this.innerHTML) {
+  s.selectedIndex = i;
+  h.innerHTML = this.innerHTML;
+  y = this.parentNode.getElementsByClassName("same-as-selected");
+  yl = y.length;
+  for (k = 0; k < yl; k++) {
+  y[k].removeAttribute("class");
+  }
+  this.setAttribute("class", "same-as-selected");
+  break;
+  }
+  }
+  h.click();
+  });
+  b.appendChild(c);
+  }
+  x[i].appendChild(b);
+  a.addEventListener("click", function(e) {
+  /*when the select box is clicked, close any other select boxes,
+  and open/close the current select box:*/
+  e.stopPropagation();
+  closeAllSelect(this);
+  this.nextSibling.classList.toggle("select-hide");
+  this.classList.toggle("select-arrow-active");
+  });
+  }
+  function closeAllSelect(elmnt) {
+  /*a function that will close all select boxes in the document,
+  except the current select box:*/
+  var x, y, i, xl, yl, arrNo = [];
+  x = document.getElementsByClassName("select-items");
+  y = document.getElementsByClassName("select-selected");
+  xl = x.length;
+  yl = y.length;
+  for (i = 0; i < yl; i++) {
+  if (elmnt == y[i]) {
+  arrNo.push(i)
+  } else {
+  y[i].classList.remove("select-arrow-active");
+  }
+  }
+  for (i = 0; i < xl; i++) {
+  if (arrNo.indexOf(i)) {
+  x[i].classList.add("select-hide");
+  }
+  }
+  }
+  /*if the user clicks anywhere outside the select box,
+  then close all select boxes:*/
+  document.addEventListener("click", closeAllSelect);
